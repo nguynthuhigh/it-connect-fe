@@ -17,10 +17,22 @@ import Invitations from "./company/pages/invitations";
 import Search from "./candidate/pages/search-job";
 import AddNewPost from "./company/pages/job/post-new-job";
 import Index from "./company/pages/job";
+import { SidebarAdmin } from "./shared/components/sidebar/sidebar-admin";
+import Role from "./admin/pages/role/system-role";
+import User from "./admin/pages/user";
+import CompanyRole from "./admin/pages/role/company-role";
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
     <Sidebar />
     <div style={{ flexGrow: 1, padding: "20px" }} className="bg-gray-50">
+      <Outlet />
+    </div>
+  </div>
+);
+const RootLayoutAdmin = () => (
+  <div style={{ display: "flex" }}>
+    <SidebarAdmin />
+    <div style={{ flexGrow: 1 }} className="bg-gray-50">
       <Outlet />
     </div>
   </div>
@@ -105,12 +117,24 @@ function App() {
     //admin site
     {
       path: "/admin",
+      element: <RootLayoutAdmin></RootLayoutAdmin>,
       children: [
         {
           path: "dashboard",
           element: <Dashboard></Dashboard>,
         },
-
+        {
+          path: "sys-roles",
+          element: <Role></Role>,
+        },
+        {
+          path: "company-roles",
+          element: <CompanyRole></CompanyRole>,
+        },
+        {
+          path: "users",
+          element: <User></User>,
+        },
         {
           path: "login-admin",
           element: <LoginAdmin />,
