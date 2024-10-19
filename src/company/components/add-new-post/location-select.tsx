@@ -1,26 +1,35 @@
-import React from 'react';
+import React from "react";
+import { Select } from "antd";
 
 interface LocationSelectProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  name: string;
+  title: string;
+  options: { value: string; label: string }[];
 }
 
-const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
+const onChange = (value: string) => {
+  console.log(`selected ${value}`);
+};
+
+const onSearch = (value: string) => {
+  console.log("search:", value);
+};
+
+const LocationSelect: React.FC<LocationSelectProps> = ({ name, title, options }) => {
   return (
     <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-        Location
+      <label htmlFor={name} className="font-semibold text-gray-main mb-2 block">
+        {title}
       </label>
-      <select
-        id="location"
-        value={value}
+      <Select
+        showSearch
+        placeholder="Select a location"
+        optionFilterProp="label"
         onChange={onChange}
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      >
-        <option>Choose location</option>
-        <option>Hanoi</option>
-        <option>Ho Chi Minh City</option>
-      </select>
+        onSearch={onSearch}
+        className="w-full bg-gray-50 h-12" // Sử dụng lớp h-12 để tăng chiều cao
+        options={options}
+      />
     </div>
   );
 };

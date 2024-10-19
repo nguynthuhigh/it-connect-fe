@@ -21,6 +21,8 @@ import { SidebarAdmin } from "./shared/components/sidebar/sidebar-admin";
 import Role from "./admin/pages/role/system-role";
 import User from "./admin/pages/user";
 import CompanyRole from "./admin/pages/role/company-role";
+import EditPostJob from "./company/pages/job/edit-post-job";
+import DetailPostJob from "./company/pages/job/detai-post-job";
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
     <Sidebar />
@@ -104,9 +106,18 @@ function App() {
           path: "invitations",
           element: <Invitations></Invitations>,
         },
+
         {
           path: "post-new-job",
           element: <AddNewPost></AddNewPost>,
+        },
+        {
+          path: "edit-post-job",
+          element: <EditPostJob></EditPostJob>,
+        },
+        {
+          path: "detail-post-job",
+          element: <DetailPostJob></DetailPostJob>,
         },
         {
           path: "jobs",

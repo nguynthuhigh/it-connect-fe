@@ -4,10 +4,10 @@ import Input from "../../../shared/components/input-pattern/input";
 import DescriptionJob from '../../components/add-new-post/description-job';
 import SkillSelect from "../../components/add-new-post/skill-select";
 import LocationSelect from "../../components/add-new-post/location-select";
-const AddNewPost: React.FC = () => {
+const EditPostJob: React.FC = () => {
   return (
     <div className="bg-white p-6"> {/* Added padding here */}
-      <h1 className="text-black font-bold text-xl mb-6">Post New Job</h1> 
+      <h1 className="text-black font-bold text-xl mb-6">Edit Post Job</h1> 
       <div className="flex justify-between mb-6">
         <Input
           placeholder="Senior Nodejs...."
@@ -34,9 +34,9 @@ const AddNewPost: React.FC = () => {
           className="w-[40%]"
         ></Input>
         <div className="flex items-center w-[60%]">
-          <label className="mr-4 text-sm font-medium text-gray-main"></label>
+          <label className="mr-4 text-sm font-medium text-gray-700"></label>
           <div className="flex items-center space-x-4">
-            <label className="flex items-center text-gray-main">
+            <label className="flex items-center">
               <input
                 type="radio"
                 name="visibility"
@@ -45,7 +45,7 @@ const AddNewPost: React.FC = () => {
               />
               Public
             </label>
-            <label className="flex items-center text-gray-main">
+            <label className="flex items-center">
               <input
                 type="radio"
                 name="visibility"
@@ -57,7 +57,6 @@ const AddNewPost: React.FC = () => {
           </div>
         </div>
       </div>
-
       <LocationSelect
         name="location"
         title="Location"
@@ -67,21 +66,20 @@ const AddNewPost: React.FC = () => {
           { value: "location3", label: "Location 3" },
         ]}
       />
-
       <DescriptionJob title="Why you'll love working here"></DescriptionJob>
       <DescriptionJob title="Job Top 3 Reasons"></DescriptionJob>
       <DescriptionJob title="Your skill and experience"></DescriptionJob>
 
       <div className="flex justify-end space-x-4">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
         >
-          Add
+          Save Change
         </button>
       </div>
     </div>
   );
 };
 
-export default AddNewPost;
+export default EditPostJob;
