@@ -23,6 +23,8 @@ import User from "./admin/pages/user";
 import CompanyRole from "./admin/pages/role/company-role";
 import EditPostJob from "./company/pages/job/edit-post-job";
 import DetailPostJob from "./company/pages/job/detai-post-job";
+import CompanyList from "./admin/pages/company/company-list";
+
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
     <Sidebar />
@@ -153,6 +155,10 @@ function App() {
         {
           path: "manage-user",
           element: <ManageUser></ManageUser>,
+        },
+        {
+          path: "company-list",
+          element: <CompanyList></CompanyList>,
         },
       ],
     },
