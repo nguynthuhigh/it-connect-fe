@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import DummyData from "../../../shared/dummy-data/users.json";
 import { Table, TableColumnsType } from "antd";
-import Popup from "reactjs-popup";
-import Crud from "../../components/permission/crud";
+import Permission from "../../components/permission/permission";
 interface DataType {
   roleID: string;
   name: string;
@@ -12,7 +11,10 @@ const data: DataType[] = DummyData;
 
 const Role: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [selectRole, setSelectRole] = useState<string>("");
+  const handleOpenPopup = () => {
+    setIsOpen(!isOpen);
+  };
   const columns: TableColumnsType<DataType> = [
     {
       title: "#",
@@ -35,13 +37,14 @@ const Role: React.FC = () => {
           <div className="space-x-2">
             <button
               onClick={() => {
-                console.log(roleID);
+                setSelectRole(roleID);
                 setIsOpen(!isOpen);
               }}
               className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
             >
               Permission
             </button>
+
             <button
               onClick={() => {
                 console.log(roleID);
@@ -59,36 +62,11 @@ const Role: React.FC = () => {
   return (
     <>
       <Table<DataType> columns={columns} dataSource={data} pagination={false} />
-      <Popup
-        onClose={() => {
-          setIsOpen(!isOpen);
-        }}
-        modal={true}
-        open={isOpen}
-        overlayStyle={{ background: "rgba(0, 0, 0, 0.5)" }}
-        contentStyle={{
-          width: "100%",
-          background: "white",
-          maxWidth: 600,
-          padding: 20,
-          borderRadius: 10,
-        }}
-      >
-        <div className="space-y-5">
-          <div className="flex items-center text-sm font-semibold justify-between">
-            <h1 className="text-lg">Dashboard</h1>
-            <Crud></Crud>
-          </div>
-          <div className="flex items-center text-sm font-semibold justify-between">
-            <h1 className="text-lg">Users</h1>
-            <Crud></Crud>
-          </div>
-          <div className="flex items-center text-sm font-semibold justify-between">
-            <h1 className="text-lg">Jobs</h1>
-            <Crud></Crud>
-          </div>
-        </div>
-      </Popup>
+      <Permission
+        handleOpenPopup={handleOpenPopup}
+        isOpen={isOpen}
+        roleID={selectRole}
+      ></Permission>
     </>
   );
 };
