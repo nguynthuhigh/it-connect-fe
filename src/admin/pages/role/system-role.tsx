@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import DummyData from "../../../shared/dummy-data/users.json";
 import { Table, TableColumnsType } from "antd";
 import Permission from "../../components/permission/permission";
+import { useQuery } from "@tanstack/react-query";
+import { getRoles } from "../../services/api/role.api";
 interface DataType {
   roleID: string;
   name: string;
 }
 
-const data: DataType[] = DummyData;
-
 const Role: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectRole, setSelectRole] = useState<string>("");
+  const { data, isLoading } = useQuery({
+    queryKey: ["roles"],
+    queryFn: async () => {
+      return await getRoles();
+    },
+  });
+  if (isLoading) return "...loading";
   const handleOpenPopup = () => {
     setIsOpen(!isOpen);
   };
