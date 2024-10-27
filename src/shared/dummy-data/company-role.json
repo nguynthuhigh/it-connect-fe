@@ -1,0 +1,14 @@
+[
+  {
+    "roleID": "1",
+    "name": "admin company"
+  },
+  {
+    "roleID": "1",
+    "name": "hr"
+  },
+  {
+    "roleID": "1",
+    "name": "employee"
+  }
+]
