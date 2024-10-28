@@ -1,41 +1,73 @@
 import Dashboard from "../admin/pages/home/dashboard";
 import LoginAdmin from "../admin/pages/authentication/login";
 import ManageUser from "../admin/pages/manage-user/manage-user";
-
 import { SidebarAdmin } from "../shared/components/sidebar/sidebar-admin";
 import Role from "../admin/pages/role/system-role";
 import User from "../admin/pages/user";
 import CompanyRole from "../admin/pages/role/company-role";
-
 import CompanyList from "../admin/pages/company/company-list";
 import { Outlet } from "react-router-dom";
-const RootLayoutAdmin = () => (
-  <div style={{ display: "flex" }}>
-    <SidebarAdmin />
-    <div style={{ flexGrow: 1 }} className="bg-gray-50">
-      <Outlet />
+import ProtectedRoute from "../admin/components/protected/protected-route";
+import { IPermission } from "../shared/types/permission";
+import { getUserPermissionAPI } from "../admin/services/api/permission";
+import { useQuery } from "@tanstack/react-query";
+
+const RootLayoutAdmin = () => {
+  const { data: userPermissions, isLoading, error } = useQuery<IPermission[]>({
+    queryKey: ["user-permission"],
+    queryFn: getUserPermissionAPI,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching permissions</div>;
+
+  return (
+    <div style={{ display: "flex" }}>
+      <SidebarAdmin />
+      <div style={{ flexGrow: 1 }} className="bg-gray-50">
+        <Outlet context={{ userPermissions }} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
 export const AdminRoute = {
   path: "/admin",
-  element: <RootLayoutAdmin></RootLayoutAdmin>,
+  element: <RootLayoutAdmin />,
   children: [
     {
       path: "dashboard",
-      element: <Dashboard></Dashboard>,
+      element: <Dashboard />,
     },
     {
       path: "sys-roles",
-      element: <Role></Role>,
+      element: (
+        <ProtectedRoute
+          resource="role"
+          action="view"
+        />
+      ),
+      children: [{ path: "", element: <Role /> }],
     },
     {
       path: "company-roles",
-      element: <CompanyRole></CompanyRole>,
+      element: (
+        <ProtectedRoute
+          resource="company"
+          action="view"
+        />
+      ),
+      children: [{ path: "", element: <CompanyRole /> }],
     },
     {
       path: "users",
-      element: <User></User>,
+      element: (
+        <ProtectedRoute
+          resource="user"
+          action="view"
+        />
+      ),
+      children: [{ path: "", element: <User /> }],
     },
     {
       path: "login-admin",
@@ -43,11 +75,11 @@ export const AdminRoute = {
     },
     {
       path: "manage-user",
-      element: <ManageUser></ManageUser>,
+      element: <ManageUser />,
     },
     {
       path: "company-list",
-      element: <CompanyList></CompanyList>,
+      element: <CompanyList />,
     },
   ],
 };

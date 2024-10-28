@@ -46,13 +46,20 @@ const columns: TableColumnsType<DataType> = [
   {
     title: "ROLE",
     dataIndex: "role",
-    render: (_, { Roles }) => <VariantRole role={Roles[0]?.name || "user"} />,
+    render: (_, { Roles }) => (
+      <div className="flex space-x-2">
+        {Roles.map((item) => (
+          <VariantRole role={item.name} />
+        ))}
+      </div>
+    ),
   },
   {
     title: "JOIN DATE",
     dataIndex: "createdDate",
     sorter: (a, b) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    render: (_, { createdAt }) => <div>{createdAt}</div>,
   },
   {
     title: "STATUS",
@@ -63,12 +70,20 @@ const columns: TableColumnsType<DataType> = [
     title: "ACTION",
     dataIndex: "action",
     render: (_, { invitationID }) => (
-      <button
-        onClick={() => console.log(invitationID)}
-        className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
-      >
-        View more
-      </button>
+      <div className="space-x-4">
+        <button
+          onClick={() => console.log(invitationID)}
+          className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
+        >
+          Role
+        </button>
+        <button
+          onClick={() => console.log(invitationID)}
+          className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
+        >
+          View more
+        </button>
+      </div>
     ),
   },
 ];
