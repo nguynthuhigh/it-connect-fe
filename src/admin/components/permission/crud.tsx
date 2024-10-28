@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import CustomSwitch from "./switch";
 import { capitalizeFirstLetter } from "../../../shared/utils/utils";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import {
+  getPermissionsAPI,
+  setPermissionAPI,
+} from "../../services/api/permission";
 
 interface IPermission {
   resource: string;
@@ -12,12 +15,16 @@ interface IPermission {
 interface ResourcePermissionProps {
   roleID: string;
 }
-
+interface setPermission {
+  resource: string;
+  action: string;
+  roleID: string;
+}
 const ResourcePermission: React.FC<ResourcePermissionProps> = ({ roleID }) => {
   const PERMISSION_DEFAULT: IPermission[] = [
     { resource: "dashboard", action: ["view"] },
     { resource: "user", action: ["view", "ban"] },
-    { resource: "role", action: ["view", "permission"] },
+    { resource: "role", action: ["view", "permission","set"] },
     { resource: "company", action: ["view", "ban"] },
     { resource: "transaction", action: ["view"] },
     { resource: "job", action: ["view", "delete"] },
@@ -29,23 +36,8 @@ const ResourcePermission: React.FC<ResourcePermissionProps> = ({ roleID }) => {
     { resource: "role", action: ["set", "view"] },
   ]);
   const { mutate } = useMutation({
-    mutationFn: async ({
-      resource,
-      action,
-      roleID,
-    }: {
-      resource: string;
-      action: string;
-      roleID: string;
-    }) => {
-      await axios.post(
-        "http://localhost:8888/api/v1/permission/set-permission",
-        {
-          resource,
-          roleID,
-          action,
-        }
-      );
+    mutationFn: async ({ resource, action, roleID }: setPermission) => {
+      await setPermissionAPI(resource, roleID, action);
     },
     onSuccess: () => {
       console.log("ok");
@@ -57,9 +49,7 @@ const ResourcePermission: React.FC<ResourcePermissionProps> = ({ roleID }) => {
   const { isLoading } = useQuery<IPermission[]>({
     queryKey: [`permission-${roleID}`],
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:8888/api/v1/permission/role-permission/${roleID}`
-      );
+      const res = await getPermissionsAPI(roleID);
       setPermissions(res.data);
       return res.data;
     },

@@ -3,6 +3,7 @@ import { Table, TableColumnsType } from "antd";
 import Permission from "../../components/permission/permission";
 import { useQuery } from "@tanstack/react-query";
 import { getRoles } from "../../services/api/role.api";
+import ProtectedFeature from "../../components/protected/protected-feat";
 interface DataType {
   roleID: string;
   name: string;
@@ -41,15 +42,17 @@ const Role: React.FC = () => {
       render: (_, { roleID }) => {
         return (
           <div className="space-x-2">
-            <button
-              onClick={() => {
-                setSelectRole(roleID);
-                setIsOpen(!isOpen);
-              }}
-              className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
-            >
-              Permission
-            </button>
+            <ProtectedFeature action="permission" resource="role">
+              <button
+                onClick={() => {
+                  setSelectRole(roleID);
+                  setIsOpen(!isOpen);
+                }}
+                className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
+              >
+                Permission
+              </button>
+            </ProtectedFeature>
 
             <button
               onClick={() => {
