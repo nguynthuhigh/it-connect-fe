@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IPermission } from "../shared/types/permission";
-import { getUserPermissionAPI } from "../admin/services/api/permission";
+import { getUserPermissionAPI } from "../admin/services/api/permission.api";
 
 export const apiSlice = createApi({
   reducerPath: "userPermission",

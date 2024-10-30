@@ -15,10 +15,16 @@ import PermissionGray from "../../assets/svg/permission-gray.svg?react";
 import TransactionsGray from "../../assets/svg/transaction-gray.svg?react";
 
 import LogOut from "../../assets/svg/log-out.svg?react";
+import ProtectedFeature from "../../../admin/components/protected/protected-feat";
+import { authAPI } from "../../../admin/services/api/auth.api";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import { capitalizeFirstLetter } from "../../utils/utils";
 const path = [
   {
     pathname: "/admin/dashboard",
     name: "Dashboard",
+    id: "dashboard",
     icon: Dashboard,
     icon_gray: DashboardGray,
   },
@@ -26,43 +32,47 @@ const path = [
     pathname: "/admin/users",
     name: "Users",
     icon: Permission,
+    id: "user",
     icon_gray: PermissionGray,
   },
   {
     pathname: "/admin/sys-roles",
     name: "System Roles",
     icon: Jobs,
+    id: "role",
     icon_gray: JobsGray,
   },
   {
-    pathname: "/admin/company-roles",
-    name: "Company Roles",
-    icon: Jobs,
-    icon_gray: JobsGray,
-  },
-  {
-    pathname: "/admin/invitations",
-    name: "Invitations",
+    pathname: "/admin/jobs",
+    name: "Jobs",
     icon: Invitation,
+    id: "job",
     icon_gray: InvitationGray,
-  },
-];
-const morePath = [
-  {
-    pathname: "/admin/draft",
-    name: "Buy ITC",
-    icon: ITC,
-    icon_gray: ITCGray,
   },
   {
     pathname: "/company/transactions",
     name: "Transactions",
     icon: Transactions,
+    id: "transaction",
     icon_gray: TransactionsGray,
   },
 ];
-export const SidebarAdmin = () => {
+const morePath = [
+  {
+    pathname: "/admin/draft",
+    name: "Settings",
+    icon: ITC,
+    icon_gray: ITCGray,
+  },
+];
+export const SidebarAdmin: React.FC = () => {
   const location = useLocation();
+  const { data, isLoading } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: authAPI,
+  });
+  if (isLoading) return "...Loading";
+  console.log(data);
   return (
     <div className="w-[250px] border-r-2 h-[100vh] rounded-b-lg max-md:hidden">
       <div className="flex space-x-2 p-4 border-b-0 border-gray-500">
@@ -72,8 +82,17 @@ export const SidebarAdmin = () => {
           alt="User"
         />
         <div className="text-sm font-semibold">
-          <h1 className="text-gray-500">HR</h1>
-          <h1 className="text-black font-medium">Minh Nguyen</h1>
+          <div className="flex space-x-2">
+            {data.roles.map((item: { name: string }, key: number) => (
+              <h1 key={key} className="text-gray-500 ">
+                {capitalizeFirstLetter(item?.name)}
+              </h1>
+            ))}
+            {/* #redux */}
+          </div>
+          <h1 className="text-black font-medium text-ellipsis">
+            {data.user.email}
+          </h1>
         </div>
       </div>
       <div className="border-b border-l-gray-main mx-2"></div>
@@ -81,13 +100,15 @@ export const SidebarAdmin = () => {
         <h1 className="text-[12px] p-4 pb-0 mb-2 text-gray-500">MAIN</h1>
         {path.map((item) => (
           <Link to={item.pathname} key={item.pathname}>
-            <SideBarPart
-              link={item.pathname}
-              isSelected={location.pathname === item.pathname}
-              Icon={item.icon}
-              IconGray={item.icon_gray}
-              state={item.name}
-            />
+            <ProtectedFeature resource={item.id} action="view">
+              <SideBarPart
+                link={item.pathname}
+                isSelected={location.pathname === item.pathname}
+                Icon={item.icon}
+                IconGray={item.icon_gray}
+                state={item.name}
+              />
+            </ProtectedFeature>
           </Link>
         ))}
       </div>

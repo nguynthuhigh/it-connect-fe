@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   getPermissionsAPI,
   setPermissionAPI,
-} from "../../services/api/permission";
+} from "../../services/api/permission.api";
 
 interface IPermission {
   resource: string;
@@ -24,7 +24,7 @@ const ResourcePermission: React.FC<ResourcePermissionProps> = ({ roleID }) => {
   const PERMISSION_DEFAULT: IPermission[] = [
     { resource: "dashboard", action: ["view"] },
     { resource: "user", action: ["view", "ban"] },
-    { resource: "role", action: ["view", "permission","set"] },
+    { resource: "role", action: ["view", "permission", "set"] },
     { resource: "company", action: ["view", "ban"] },
     { resource: "transaction", action: ["view"] },
     { resource: "job", action: ["view", "delete"] },

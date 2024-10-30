@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../../services/api/user.api";
 import UserRole from "../../components/user/user-role";
 import { DataTypeUser } from "../../../shared/types/user";
+import ProtectedFeature from "../../components/protected/protected-feat";
 
 const Users: React.FC = () => {
   const { data, isLoading } = useQuery<DataTypeUser[]>({
@@ -69,15 +70,17 @@ const Users: React.FC = () => {
       dataIndex: "action",
       render: (_, { userID }) => (
         <div className="space-x-4">
-          <button
-            onClick={() => {
-              setUserId(userID);
-              setIsOpen(!isOpen);
-            }}
-            className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
-          >
-            Role
-          </button>
+          <ProtectedFeature resource="role" action="set">
+            <button
+              onClick={() => {
+                setUserId(userID);
+                setIsOpen(!isOpen);
+              }}
+              className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
+            >
+              Role
+            </button>
+          </ProtectedFeature>
           <button
             onClick={() => console.log(userID)}
             className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-sm"
