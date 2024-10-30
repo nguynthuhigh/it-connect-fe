@@ -11,6 +11,8 @@ import ProtectedRoute from "../admin/components/protected/protected-route";
 import { IPermission } from "../shared/types/permission";
 import { getUserPermissionAPI } from "../admin/services/api/permission";
 import { useQuery } from "@tanstack/react-query";
+import DetailCompany from "../admin/pages/company/detail-company";
+import AdminLogin from "../admin/pages/authentication/admin-login";
 
 const RootLayoutAdmin = () => {
   const { data: userPermissions, isLoading, error } = useQuery<IPermission[]>({
@@ -80,6 +82,15 @@ export const AdminRoute = {
     {
       path: "company-list",
       element: <CompanyList />,
+    },
+
+    {
+      path: "detail-company",
+      element: <DetailCompany />,
+    },
+    {
+      path: "admin-login",
+      element: <AdminLogin />,
     },
   ],
 };
