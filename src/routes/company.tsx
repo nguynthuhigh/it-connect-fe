@@ -7,6 +7,8 @@ import DetailPostJob from "../company/pages/job/detai-post-job";
 import { Sidebar } from "../shared/components/sidebar/sidebar";
 import { Outlet } from "react-router-dom";
 
+import BuyITC from "../company/pages/buy-itc/buy-itc";
+
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
     <Sidebar />
@@ -47,6 +49,11 @@ export const CompanyRoute = {
     {
       path: "jobs",
       element: <Index></Index>,
+    },
+
+    {
+      path: "buy-itc",
+      element: <BuyITC></BuyITC>,
     },
   ],
 };

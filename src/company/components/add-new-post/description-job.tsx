@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface DescriptionJobProps {
   title: string;
 }
 
 const DescriptionJob: React.FC<DescriptionJobProps> = ({ title }) => {
+  const [editorHtml, setEditorHtml] = useState<string>(''); 
+
+  const handleEditorChange = (html: string) => {
+    setEditorHtml(html);
+  };
+
   return (
-    <div className="mb-4">
-      <label className="block font-semibold text-gray-main mb-2">
+    <div className="mb-16"> 
+      <label className="block font-semibold text-gray-main mb-4">
         {title}
       </label>
-      <textarea
-        className="shadow appearance-none border rounded w-full h-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="Description title..."
-        rows={5} // Thay đổi số hàng nếu cần
+      <ReactQuill
+        value={editorHtml}
+        onChange={handleEditorChange}
+        placeholder="Enter description..."
+        theme="snow"
+        className="h-32" 
       />
     </div>
   );
