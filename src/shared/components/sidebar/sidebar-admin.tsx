@@ -83,7 +83,7 @@ export const SidebarAdmin: React.FC = () => {
         />
         <div className="text-sm font-semibold">
           <div className="flex space-x-2">
-            {data.roles.map((item: { name: string }, key: number) => (
+            {data?.roles?.map((item: { name: string }, key: number) => (
               <h1 key={key} className="text-gray-500 ">
                 {capitalizeFirstLetter(item?.name)}
               </h1>
