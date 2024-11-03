@@ -1,5 +1,6 @@
 import Header from "../../../candidate/components/header/header";
 import Input from "../../../shared/components/input-pattern/input";
+import { Link } from "react-router-dom";
 
 const AdminLogin = () => {
     return (
@@ -15,15 +16,14 @@ const AdminLogin = () => {
                             <div className="absolute bottom-32 -right-44 w-56 h-56 bg-[#34A4F7] rounded-full opacity-80"></div>
                             <div className="absolute top-40 left-32 w-20 h-20 bg-[#EBB6DA] rounded-full opacity-80"></div>
                             <div className="mt-5 space-x-4 text-[#585858]">
-                                <a href="#">About</a>
-                                <a href="#">Privacy</a>
-                                <a href="#">Terms of Use</a>
-                                <a href="#">FAQ</a>
+                                <Link to="#">About</Link>
+                                <Link to="#">Privacy</Link>
+                                <Link to="#">Terms of Use</Link>
+                                <Link to="#">FAQ</Link>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Section - Login Form */}
                     <div className="w-1/2 bg-white p-20 flex flex-col justify-center">
                         <h2 className="text-3xl font-semibold text-center text-[#585858] mb-6">Log in</h2>
                         <form className="space-y-5">
@@ -41,7 +41,7 @@ const AdminLogin = () => {
                                 Log in
                             </button>
                             <div className="text-center mt-3">
-                                <a href="#" className="text-[#34A4F7] hover:underline">Forgot password?</a>
+                                <Link to="#" className="text-[#34A4F7] hover:underline">Forgot password?</Link>
                             </div>
                         </form>
                     </div>
