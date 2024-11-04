@@ -1,7 +1,7 @@
 import React from "react";
 import { Select } from "antd";
 
-interface LocationSelectProps {
+interface StatusSelectProps {
   name: string;
   title: string;
   options: { value: string; label: string }[];
@@ -15,7 +15,7 @@ const onSearch = (value: string) => {
   console.log("search:", value);
 };
 
-const LocationSelect: React.FC<LocationSelectProps> = ({ name, title, options }) => {
+const StatusSelect: React.FC<StatusSelectProps> = ({ name, title, options }) => {
   return (
     <div className="mb-4">
       <label htmlFor={name} className="font-semibold text-gray-main mb-2 block">
@@ -23,7 +23,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ name, title, options })
       </label>
       <Select
         showSearch
-        placeholder="Choose location"
+        placeholder="Choose status"
         optionFilterProp="label"
         onChange={onChange}
         onSearch={onSearch}
@@ -34,4 +34,4 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ name, title, options })
   );
 };
 
-export default LocationSelect;
+export default StatusSelect;

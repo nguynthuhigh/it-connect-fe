@@ -44,7 +44,7 @@ export const CandidateRoute = {
       element: <CompanyWriteReviews />,
     },
     {
-      path: "job",
+      path: "job-details",
       element: <JobDetail />,
     },
     {
