@@ -17,17 +17,17 @@ const onSearch = (value: string) => {
 
 const SkillSelect: React.FC<SkillSelectProps> = ({ name, title, options }) => {
   return (
-    <div className="mb-4 w-1/4">
+    <div className="mb-4">
       <label htmlFor={name} className="font-semibold text-gray-main mb-2 block">
         {title}
       </label>
       <Select
         showSearch
-        placeholder="Select a skill"
+        placeholder="Choose skill"
         optionFilterProp="label"
         onChange={onChange}
         onSearch={onSearch}
-        className="w-full bg-gray-50 h-12 -mt-2" // Thay thế style bằng lớp Tailwind
+        className="w-[300px] bg-gray-50 h-[50px] -mt-2" // Thay thế style bằng lớp Tailwind
         options={options}
       />
     </div>
