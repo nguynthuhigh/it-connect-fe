@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import ggIcon from "../../assets/png/google.png";
 import visibleIcon from "../../assets/png/visible_eye.png";
 import invisibleIcon from "../../assets/png/invisible_eye.png";
 const Register: React.FC = () => {
@@ -71,16 +70,16 @@ const Register: React.FC = () => {
   };
   // An/hien pass va confirm pass
   return (
-    <div className="min-h-screen flex justify-center items-start">
-      <div className="max-w-md w-full space-y-7">
+    <div className="min-h-screen flex font-inter justify-center items-start">
+      <div className="max-w-md w-full space-y-3">
         <div className="flex flex-col justify-center items-center">
-          <h2 className="mt-40 text-center text-3xl font-bold text-black font-inter">
+          <h2 className="mt-10 text-center text-[40px] font-bold">
             New account, new jobs!
           </h2>
         </div>
         <form onSubmit={handleRegister}>
           <div>
-            <label className="text-lg font-semibold text-black font-inter">
+            <label className="text-[20px] font-semibold">
               Email
             </label>
             <input
@@ -90,15 +89,15 @@ const Register: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onClick={hideError}
-              className="w-full border-2 rounded-md border-bor-color-grey p-2 mt-1 bg-transparent font-inter"
-              placeholder="Enter your email"
+              className="block w-full h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
+              placeholder="Enter email"
             />
             {errors.email && (
               <p className="text-red-400 text-sm">{errors.email}</p>
             )}
           </div>
-          <div className="mt-3 relative">
-            <label className=" text-lg font-semibold text-black font-inter">
+          <div className="mt-5 relative">
+            <label className="text-[20px] font-semibold">
               Password
             </label>
             <input
@@ -108,21 +107,21 @@ const Register: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onClick={hideError}
-              className="w-full border-2 rounded-md border-bor-color-grey p-2 mt-1 bg-transparent font-inter"
-              placeholder="Enter your password"
+              className="block w-full h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
+              placeholder="Enter password"
             />
             <img
               src={showPassword ? visibleIcon : invisibleIcon}
               alt="Toggle Password Visibility"
-              className="absolute inset-y-2 right-0 pr-3 h-5 w-9 mt-9 cursor-pointer"
+              className="absolute inset-y-2 right-0 pr-4 h-5 w-9 mt-12 cursor-pointer"
               onClick={togglePasswordVisibility}
             />
             {errors.password && (
               <p className="text-red-400 text-sm">{errors.password}</p>
             )}
           </div>
-          <div className="mt-3 relative">
-            <label className="text-lg font-semibold text-black font-inter">
+          <div className="mt-5 relative">
+            <label className="text-[20px] font-semibold">
               Confirm Password
             </label>
             <input
@@ -132,57 +131,64 @@ const Register: React.FC = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               onClick={hideError}
-              className="w-full border-2 rounded-md border-bor-color-grey p-2 mt-1 bg-transparent font-inter"
-              placeholder="Confirm your password"
+              className="block w-full h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
+              placeholder="Confirm password"
             />
             <img
               src={showConfirmPassword ? visibleIcon : invisibleIcon}
               alt="Toggle Password Visibility"
-              className="absolute inset-y-2 right-0 pr-3 h-5 w-9 mt-9 cursor-pointer"
+              className="absolute inset-y-2 right-0 pr-4 h-5 w-9 mt-12 cursor-pointer"
               onClick={toggleConfirmPasswordVisibility}
             />
             {errors.confirmPassword && (
               <p className="text-red-400 text-sm">{errors.confirmPassword}</p>
             )}
           </div>
-          <div className="mt-3">
+          <div className="mt-3 py-1">
             <a
               href=""
-              className="text-blue-main flex items-center justify-end font-inter font-medium"
+              className="text-[#0075FF] text-[20px] flex items-center justify-end font-medium"
             >
               Forgotten password
             </a>
           </div>
           <div className="mt-3 flex items-center justify-center">
-            <button
-              type="submit"
-              className=" text-white bg-blue-main rounded-lg bg-btn-login w-full h-11 text-lg font-inter"
-            >
-              Sign Up
+            <button type="submit" className=" text-white font-bold rounded-[15px] bg-blue-main w-full h-[60px] text-lg">
+            Sign Up
             </button>
           </div>
         </form>
-        <div className="text-center mt-3">
-          <p className="font-inter text-base">
+        <div className="text-center pt-2">
+          <p className="text-[20px] text-gray-600 ">
             Already have an account?{" "}
             <a
               href="/login"
-              className="text-blue-main font-inter font-semibold"
+              className="text-blue-main font-semibold"
             >
               Sign in now!
             </a>
           </p>
         </div>
-        <div className="relative flex mt-3 items-center">
-          <div className="flex-grow border-t border-gray-400"></div>
-          <span className="mx-4 text-sm font-semibold">Or</span>
-          <div className="flex-grow border-t border-gray-400"></div>
+        <div className="relative flex py-1 items-center">
+          <div className="flex-grow border-t border-[#BDBDBD]"></div>
+          <span className="mx-8 text-[20px]">Or</span>
+          <div className="flex-grow border-t border-[#BDBDBD]"></div>
         </div>
-        <div>
-          <button className="w-full flex justify-center items-center text-lg font-semibold bg-white border-2 border-gray-300 mt-3 px-4 rounded-md shadow-sm hover:bg-gray-100">
-            <img src={ggIcon} alt="Google" className="w-9 h-9 mr-2" />
-            Sign up with Google
-          </button>
+        <div className="pt-1">
+          <a
+            href="https://sso-pointer.vercel.app/authorize?clientId=66f38b1441aea9e24920e456"
+            type="button"
+            className=" w-full border-[2px] border-[#4285F4] text-[#4285F4] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mr-2 mb-2"
+          >
+            <img
+              alt="pointer logo"
+              className={
+                "mr-2 -ml-1 w-6 h-6 border-white border rounded-full"
+              }
+              src="https://i.imgur.com/5cYzRrm.png"
+            />
+            Sign in with Pointer<div></div>
+          </a>
         </div>
         {isSignUpSuccess && (
           <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black bg-opacity-50">

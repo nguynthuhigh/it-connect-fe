@@ -1,124 +1,95 @@
 import React, { useState } from "react";
-// import { useNavigate } from 'react-router-dom'
-import ggIcon from "../../assets/png/google.png";
-// import {z} from 'zod'
 import visibleIcon from "../../assets/png/visible_eye.png";
 import invisibleIcon from "../../assets/png/invisible_eye.png";
+// import {z} from 'zod'
+
 const Login: React.FC = () => {
-  // const [email, setEmail] = useState<string>('');
-  // const [password, setPassword] = useState<string>('');
-  // const [error, setError] = useState<string>('');
-  // const navigate = useNavigate();
 
-  // const loginCheck = z.object({
-  //   email: z.string().email('Invalid email address'),
-  //   password: z.string().min(0, 'Password is required'),
-  // });
-
-  // const handleLogin = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  // try {
-  //   loginCheck.parse({email,password});
-
-  //   const User = localStorage.getItem('registeredUser'); //Lay du lieu nguoi dung vua dang ky
-
-  //   if(User) {
-
-  //     const {email:storeEmail, password:storePassword}.JSON.parse{User};
-  //     if(email === storeEmail && password === storePassword) {
-
-  //       navigate('/');
-  //     } else {
-  //       // Mat khau hoac email sai
-  //       setError('Invalid email or password');
-  //     }
-  //   } else {
-  //     // Nguoi dung khong ton tai
-  //     setError('No registered user found. Please sign up first.');
-  //   }
-  // } catch (error) {
-  //   if (error instanceof z.ZodError) {
-  //     //Lay loi tu zod
-  //     setError(error.errors[0].message); // Hiển thị thông báo lỗi đầu tiên
-  //   }
-  // }
-  // };
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="min-h-screen flex justify-center items-start mt-40">
+    <div className="min-h-screen font-inter flex justify-center items-start mt-32">
       <div className="max-w-md w-full space-y-3">
         <div className="flex justify-center items-center mb-8">
-          <h1 className="text-3xl font-bold mr-4 font-inter">Welcome back!</h1>
+          <h1 className="text-[40px] font-bold">Welcome back!</h1>
         </div>
         <div>
-          <label className="text-lg font-semibold text-black font-inter">
+          <label className="text-[20px] font-semibold">
             Email
           </label>
           <input
             id="email"
             name="email"
             type="email"
-            className="block w-full border-2 rounded-md border-bor-color-grey p-2 mt-1 bg-transparent"
+            className="block w-full h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
             placeholder="Enter email"
           />
         </div>
-        <div className="mt-6 relative">
-          <label className="text-lg font-semibold text-black font-inter ">
+        <div className="pt-3 relative">
+          <label className="text-[20px] font-semibold">
             Password
           </label>
           <input
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
-            className="w-full border-2 rounded-md border-bor-color-grey p-2 mt-1 bg-transparent"
+            className="block w-full h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
             placeholder="Enter password"
           />
           <img
             src={showPassword ? visibleIcon : invisibleIcon}
             alt="Toggle Password Visibility"
-            className="absolute inset-y-2 right-0 pr-3 h-5 w-9 mt-9 cursor-pointer"
+            className="absolute inset-y-2 right-0 pr-4 h-5 w-9 mt-[58px] cursor-pointer"
             onClick={togglePasswordVisibility}
           />
         </div>
-        <div className="mt-3">
+        <div className="mt-3 py-1">
           <a
             href=""
-            className="text-blue-main flex items-center justify-end font-inter font-medium"
+            className="text-[#0075FF] text-[20px] flex items-center justify-end font-medium"
           >
             Forgotten password
           </a>
         </div>
         <div className="mt-3  flex items-center justify-center">
-          <button className=" text-white rounded-lg bg-blue-main w-full h-11 text-lg font-inter">
+          <button className=" text-white font-bold rounded-[15px] bg-blue-main w-full h-[60px] text-lg">
             Sign In
           </button>
         </div>
-        <div className="text-center mt-3">
-          <p className="text-base text-gray-600 font-inter">
+        <div className="text-center pt-2">
+          <p className="text-[20px] text-gray-600 ">
             Do not have an account?{" "}
             <a
               href="/register"
-              className="text-blue-main font-inter font-semibold"
+              className="text-blue-main font-semibold"
             >
               Sign up
             </a>
           </p>
         </div>
         <div className="relative flex py-1 items-center">
-          <div className="flex-grow border-t border-gray-400"></div>
-          <span className="mx-10 text-base">Or</span>
-          <div className="flex-grow border-t border-gray-400"></div>
+          <div className="flex-grow border-t border-[#BDBDBD]"></div>
+          <span className="mx-8 text-[20px]">Or</span>
+          <div className="flex-grow border-t border-[#BDBDBD]"></div>
         </div>
-        <div>
-          <button className="w-full flex justify-center items-center bg-white border-2 border-gray-300 py-1 px-4 rounded-md shadow-sm hover:bg-gray-100 font-inter font-semibold">
-            <img src={ggIcon} alt="Google" className="w-9 h-9 mr-2" />
-            Continue with Google
-          </button>
+        <div className="">
+          <a
+            href="https://sso-pointer.vercel.app/authorize?clientId=66f38b1441aea9e24920e456"
+            type="button"
+            className=" w-full border-[2px] border-[#4285F4] text-[#4285F4] focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mr-2 mb-2"
+          >
+            <img
+              alt="pointer logo"
+              className={
+                "mr-2 -ml-1 w-6 h-6 border-white border rounded-full"
+              }
+              src="https://i.imgur.com/5cYzRrm.png"
+            />
+            Sign in with Pointer<div></div>
+          </a>
         </div>
       </div>
     </div>
