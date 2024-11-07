@@ -29,13 +29,46 @@ const JobVariant: React.FC<JobVariantProps> = (props) => {
           </div>
         </div>
       );
-    case "new":
+    case "urgent":
       return (
         <div className="w-full relative border-[2px] bg-blue-50 border-blue-200 rounded-[5px] p-4 hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150 cursor-pointer">
           {props.children}
           <div className="absolute  top-0 right-0 mt-2">
             <div className=" bg-blue-500  text-white py-0.5 px-3 text-[12px] rounded-l-full">
-              NEW
+              URGENT
+            </div>
+          </div>
+        </div>
+      );
+    case "popular":
+      return (
+        <div className="w-full relative border-[2px] bg-indigo-50 border-indigo-200 rounded-[5px] p-4 hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150 cursor-pointer">
+          {props.children}
+          <div className="absolute  top-0 right-0 mt-2">
+            <div className=" bg-indigo-500  text-white py-0.5 px-3 text-[12px] rounded-l-full">
+              POPULAR
+            </div>
+          </div>
+        </div>
+      );
+    case "exclusive":
+      return (
+        <div className="w-full relative border-[2px] bg-pink-50 border-pink-200 rounded-[5px] p-4 hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150 cursor-pointer">
+          {props.children}
+          <div className="absolute  top-0 right-0 mt-2">
+            <div className=" bg-pink-500  text-white py-0.5 px-3 text-[12px] rounded-l-full">
+              EXCLUSIVE
+            </div>
+          </div>
+        </div>
+      );
+    case "limited-time":
+      return (
+        <div className="w-full relative border-[2px] bg-yellow-50 border-yellow-200 rounded-[5px] p-4 hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150 cursor-pointer">
+          {props.children}
+          <div className="absolute  top-0 right-0 mt-2">
+            <div className=" bg-yellow-500  text-white py-0.5 px-3 text-[12px] rounded-l-full">
+              LIMITED TIME
             </div>
           </div>
         </div>

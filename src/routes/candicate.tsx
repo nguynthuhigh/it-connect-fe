@@ -30,7 +30,7 @@ export const CandidateRoute = {
       element: <Home />,
     },
     {
-      path: "company",
+      path: "company/:slug",
       element: <CompanyDetails />,
     },
     {

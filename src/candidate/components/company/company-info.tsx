@@ -1,20 +1,23 @@
 import React from "react";
 import WrapInfo from "./wrap-info";
-
-const CompanyInfo: React.FC = () => {
+interface CompanyInfoProps {
+  type: string;
+  industry: string;
+  size: string;
+  working_day: string;
+  ot_policy: string;
+}
+const CompanyInfo: React.FC<CompanyInfoProps> = (props) => {
   return (
     <div className="w-full space-y-4">
       <WrapInfo title="General information">
         <div className="grid grid-cols-3 gap-5">
-          <Pattern title="Company type" content="Product"></Pattern>
-          <Pattern
-            title="Company industry"
-            content="Transportation, Logistics and Warehouse"
-          ></Pattern>
-          <Pattern title="Company size" content="50 - 100 Employees"></Pattern>
+          <Pattern title="Company type" content={props.type}></Pattern>
+          <Pattern title="Company industry" content={props.industry}></Pattern>
+          <Pattern title="Company size" content={props.size}></Pattern>
           <Pattern title="Country" content="Vietnamese"></Pattern>
-          <Pattern title="Overtime policy" content="No OT"></Pattern>
-          <Pattern title="Working days" content="Monday - Friday"></Pattern>
+          <Pattern title="Overtime policy" content={props.ot_policy}></Pattern>
+          <Pattern title="Working days" content={props.working_day}></Pattern>
         </div>
       </WrapInfo>
       <WrapInfo title="Company overview">
