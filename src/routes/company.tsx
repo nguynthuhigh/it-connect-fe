@@ -9,7 +9,6 @@ import { Outlet } from "react-router-dom";
 
 import BuyITC from "../company/pages/buy-itc/buy-itc";
 import RegisterCompany from "../company/pages/register-company/register-company";
-import ApplyJob from "../company/pages/apply-job/apply-job";
 
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
@@ -60,11 +59,6 @@ export const CompanyRoute = {
     {
       path: "register-company",
       element: <RegisterCompany></RegisterCompany>,
-    },
-
-    {
-      path: "apply-job",
-      element: <ApplyJob></ApplyJob>,
     },
   ],
 };
