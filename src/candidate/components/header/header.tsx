@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header: React.FC = () => {
   return (
     <div className="w-full h-20 bg-blue-main  fixed z-10">
-      <div className="max-w-[1200px] mx-auto w-full flex items-center">
+      <div className="max-w-[1200px] px-4 sm:p-0 mx-auto w-full flex items-center">
         <Link to={"/"}>
           <Logo className="w-15" />
         </Link>
