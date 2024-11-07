@@ -85,7 +85,7 @@ export const AdminRoute = {
     },
 
     {
-      path: "detail-company",
+      path: "detail-company", 
       element: <DetailCompany />,
     },
     {
