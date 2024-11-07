@@ -13,13 +13,13 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className={`flex-col ${className}`}>
-      <label htmlFor={name} className="font-semibold text-gray-main p-">
+      <label htmlFor={name} className="font-semibold text-gray-main">
         {title}
       </label>
       <input
         name={name}
         placeholder={placeholder}
-        className="border rounded-[4px] p-[12px] w-full bg-gray-50"
+        className="border rounded-[4px] mt-1 p-[12px] w-full bg-gray-50"
       ></input>
     </div>
   );
