@@ -10,6 +10,7 @@ import Footer from "../candidate/components/footer/footer";
 import Search from "../candidate/pages/search-job";
 import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
+import MyAccount from "../candidate/pages/authentication/my-account";
 
 
 const HeaderLayout = () => (
@@ -62,5 +63,9 @@ export const CandidateRoute = {
       element: <FormVerify />,
     },
 
+    {
+      path: "my-account",
+      element: <MyAccount />,
+    },
   ],
 };

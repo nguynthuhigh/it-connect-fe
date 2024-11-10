@@ -11,10 +11,10 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const registerCheck = z
     .object({
-      email: z.string().email("Invalid email address"),
+      email: z.string().email("Invalid email format"),
       password: z
         .string()
-        .min(8, "Password must be at least 8 characters")
+        .min(8, "Password must be at least 8 characters long")
         .regex(/\d/, "Must contain at least one number"),
       confirmPassword: z.string().min(1, "Confirm password is required"),
     })
