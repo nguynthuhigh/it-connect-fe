@@ -20,6 +20,11 @@ import Index from "./company/pages/job";
 import EditPostJob from "./company/pages/job/edit-post-job";
 import DetailPostJob from "./company/pages/job/detai-post-job";
 import CompanyList from "./admin/pages/company/company-list";
+import Setting from "./candidate/pages/setting/setting-layout"
+import Overview from "./candidate/components/setting/overview/overview"
+import ChangePassword from "./candidate/components/setting/change-password/change-password";
+import MyJobs from "./candidate/pages/my-job/my-jobs-layout";
+import SavedJobs from "./candidate/components/my-jobs/saved-jobs"
 
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
@@ -77,6 +82,43 @@ function App() {
           path: "login",
           element: <Login />,
         },
+        {
+          path: "setting",
+          element: <Overview />,
+        },
+        {
+          path: "setting",
+          element: <Setting />,
+          children: [
+            {
+              path: "",
+              element: <Overview />,
+            },
+            {
+              path: "overview",
+              element: <Overview />, 
+            },
+            {
+              path: "change-password",
+              element: <ChangePassword />, 
+            },
+          ],
+        },
+        {
+          path: "my-jobs",
+          element: <MyJobs />,
+          children: [
+            {
+              path: "saved-jobs",
+              element: <SavedJobs />,
+            },
+            {
+              
+              path: "",
+              element: <SavedJobs />,
+            },
+          ],
+        }
       ],
     },
     //company site
