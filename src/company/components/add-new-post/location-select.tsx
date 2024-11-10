@@ -23,11 +23,11 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ name, title, options })
       </label>
       <Select
         showSearch
-        placeholder="Select a location"
+        placeholder="Choose location"
         optionFilterProp="label"
         onChange={onChange}
         onSearch={onSearch}
-        className="w-full bg-gray-50 h-12" // Sử dụng lớp h-12 để tăng chiều cao
+        className="w-[300px] bg-gray-50 h-[50px]"
         options={options}
       />
     </div>

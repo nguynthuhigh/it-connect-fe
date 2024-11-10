@@ -1,0 +1,22 @@
+[
+  {
+    "roleID": "1",
+    "name": "admin"
+  },
+  {
+    "roleID": "1",
+    "name": "user"
+  },
+  {
+    "roleID": "1",
+    "name": "company"
+  },
+  {
+    "roleID": "1",
+    "name": "support staff"
+  },
+  {
+    "roleID": "1",
+    "name": "finance staff"
+  }
+]
