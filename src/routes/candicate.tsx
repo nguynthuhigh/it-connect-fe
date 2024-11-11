@@ -11,7 +11,11 @@ import Search from "../candidate/pages/search-job";
 import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
 import MyAccount from "../candidate/pages/authentication/my-account";
-
+import CvManage from "../candidate/pages/authentication/manage-cv"
+import WriteReview from "../candidate/pages/company/write-review"
+import Setting from "../candidate/pages/authentication/setting"
+import MyJobs from "../candidate/pages/authentication/my-jobs"
+import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 
 const HeaderLayout = () => (
   <div style={{ display: "flex" }}>
@@ -67,5 +71,24 @@ export const CandidateRoute = {
       path: "my-account",
       element: <MyAccount />,
     },
+    {
+      path: "cv-manage",
+      element: <CvManage />,
+    },
+    {
+      path: "my-jobs",
+      element: <MyJobs />,
+      children: [
+        {
+          path: "saved-jobs",
+          element: <SavedJobs />,
+        },
+        {
+          
+          path: "",
+          element: <SavedJobs />,
+        },
+      ],
+    }
   ],
 };

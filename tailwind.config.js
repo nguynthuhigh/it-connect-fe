@@ -9,6 +9,8 @@ export default {
         "blue-main": "#0094FF",
         "blue-extra": "#E7F5FF",
         "gray-main": "#757575",
+        "white-grey": "#F8FAFC",
+        "light-grey":"#B8BCCA"
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
