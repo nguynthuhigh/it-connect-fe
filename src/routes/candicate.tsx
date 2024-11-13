@@ -19,6 +19,8 @@ import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 
 import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
 
+import RegisterCompany from "../candidate/pages/register-company/register-company";
+
 const HeaderLayout = () => (
   <div style={{ display: "flex" }}>
     <Header />
@@ -96,6 +98,10 @@ export const CandidateRoute = {
     {
       path: "job-invitation",
       element: <JobInvitation />,
+    },
+    {
+      path: "register-company",
+      element: <RegisterCompany />,
     },
   ],
 };

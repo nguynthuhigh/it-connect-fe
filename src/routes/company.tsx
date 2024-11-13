@@ -8,7 +8,6 @@ import { Sidebar } from "../shared/components/sidebar/sidebar";
 import { Outlet } from "react-router-dom";
 
 import BuyITC from "../company/pages/buy-itc/buy-itc";
-import RegisterCompany from "../company/pages/register-company/register-company";
 
 import Invitation from "../company/pages/invitations/invitation";
 
@@ -57,10 +56,6 @@ export const CompanyRoute = {
     {
       path: "buy-itc",
       element: <BuyITC></BuyITC>,
-    },
-    {
-      path: "register-company",
-      element: <RegisterCompany></RegisterCompany>,
     },
 
     {
