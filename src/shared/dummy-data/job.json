@@ -16,7 +16,8 @@
       "companyID": 1,
       "type": "hot",
       "name": "Google",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/20/Google_2015_logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/20/Google_2015_logo.svg",
+      "Skills":[]
     },
     {
       "jobID": 2,
@@ -34,7 +35,8 @@
       "companyID": 2,
       "type": "new",
       "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+      "Skills": []
     },
     {
       "jobID": 3,
@@ -52,7 +54,8 @@
       "companyID": 3,
       "type": "normal",
       "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+      "Skills": []
     },
     {
       "jobID": 4,
@@ -70,7 +73,8 @@
       "companyID": 4,
       "type": "super-hot",
       "name": "YouTube",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png",
+      "Skills": []
     },
     {
       "jobID": 5,
@@ -88,7 +92,8 @@
       "companyID": 5,
       "type": "new",
       "name": "Amazon",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+      "Skills": []
     },
     {
       "jobID": 6,
@@ -106,7 +111,8 @@
       "companyID": 6,
       "type": "a",
       "name": "Apple",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      "Skills": []
     },
     {
       "jobID": 7,
@@ -124,7 +130,8 @@
       "companyID": 7,
       "type": "hot",
       "name": "Microsoft",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+      "Skills": []
     },
     {
       "jobID": 8,
@@ -142,7 +149,8 @@
       "companyID": 8,
       "type": "new",
       "name": "Netflix",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.png"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.png",
+      "Skills": []
     },
     {
       "jobID": 9,
@@ -160,7 +168,8 @@
       "companyID": 9,
       "type": "new",
       "name": "Tesla",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png",
+      "Skills": []
     },
     {
       "jobID": 10,
@@ -178,7 +187,8 @@
       "companyID": 10,
       "type": "new",
       "name": "Samsung",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg",
+      "Skills": []
     },
     {
       "jobID": 11,
@@ -196,7 +206,8 @@
       "companyID": 11,
       "type": "new",
       "name": "Coca-Cola",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/0/02/Coca-Cola_logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/0/02/Coca-Cola_logo.svg",
+      "Skills": []
     },
     {
       "jobID": 12,
@@ -214,7 +225,8 @@
       "companyID": 12,
       "type": "new",
       "name": "Nike",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+      "Skills": []
     },
     {
       "jobID": 1,
@@ -232,7 +244,8 @@
       "companyID": 1,
       "type": "new",
       "name": "Adidas",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/25/Adidas_Logo.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/25/Adidas_Logo.svg",
+      "Skills": []
     },
     {
       "jobID": 2,
@@ -250,7 +263,8 @@
       "companyID": 2,
       "type": "new",
       "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+      "Skills": []
     },
     {
       "jobID": 3,
@@ -268,246 +282,8 @@
       "companyID": 3,
       "type": "new",
       "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 4,
-      "slug": "backend-developer",
-      "title": "Backend Developer",
-      "description": "Develop robust back-end services and APIs...",
-      "experience": "4-6 years",
-      "environment": "On-site",
-      "level": "Mid-level",
-      "salary": "$85,000 - $110,000",
-      "work_type": "Full-time",
-      "special": "Node.js, SQL",
-      "is_public": false,
-      "author": "Michael Brown",
-      "companyID": 4,
-      "type": "super-hot",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 5,
-      "slug": "project-manager",
-      "title": "Project Manager",
-      "description": "Lead a team of developers and designers to deliver high-quality projects...",
-      "experience": "5-7 years",
-      "environment": "Remote",
-      "level": "Senior",
-      "salary": "$95,000 - $120,000",
-      "work_type": "Full-time",
-      "special": "Agile, Scrum",
-      "is_public": true,
-      "author": "Olivia Davis",
-      "companyID": 5,
-      "type": "a",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 6,
-      "slug": "ux-designer",
-      "title": "UX Designer",
-      "description": "Create user-friendly experiences with a focus on aesthetics and usability...",
-      "experience": "2-4 years",
-      "environment": "Hybrid",
-      "level": "Mid-level",
-      "salary": "$65,000 - $85,000",
-      "work_type": "Full-time",
-      "special": "Figma, Sketch",
-      "is_public": true,
-      "author": "William Garcia",
-      "companyID": 6,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 7,
-      "slug": "it-support-specialist",
-      "title": "IT Support Specialist",
-      "description": "Provide technical support for internal systems...",
-      "experience": "1-3 years",
-      "environment": "On-site",
-      "level": "Junior",
-      "salary": "$45,000 - $60,000",
-      "work_type": "Full-time",
-      "special": "Windows, Linux",
-      "is_public": false,
-      "author": "James Wilson",
-      "companyID": 7,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 8,
-      "slug": "cloud-architect",
-      "title": "Cloud Architect",
-      "description": "Design cloud infrastructure solutions for enterprise clients...",
-      "experience": "6+ years",
-      "environment": "Remote",
-      "level": "Senior",
-      "salary": "$130,000 - $150,000",
-      "work_type": "Full-time",
-      "special": "AWS, Azure",
-      "is_public": true,
-      "author": "Sophia Martinez",
-      "companyID": 8,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 9,
-      "slug": "devops-engineer",
-      "title": "DevOps Engineer",
-      "description": "Automate and streamline development and deployment processes...",
-      "experience": "3-5 years",
-      "environment": "Hybrid",
-      "level": "Mid-level",
-      "salary": "$90,000 - $110,000",
-      "work_type": "Full-time",
-      "special": "Docker, Kubernetes",
-      "is_public": true,
-      "author": "David Anderson",
-      "companyID": 9,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 10,
-      "slug": "ai-researcher",
-      "title": "AI Researcher",
-      "description": "Conduct cutting-edge research in artificial intelligence and machine learning...",
-      "experience": "5+ years",
-      "environment": "On-site",
-      "level": "Senior",
-      "salary": "$120,000 - $140,000",
-      "work_type": "Full-time",
-      "special": "Deep Learning, TensorFlow",
-      "is_public": true,
-      "author": "Ava Thomas",
-      "companyID": 10,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 11,
-      "slug": "cybersecurity-analyst",
-      "title": "Cybersecurity Analyst",
-      "description": "Monitor and protect company networks from cyber threats...",
-      "experience": "2-4 years",
-      "environment": "On-site",
-      "level": "Mid-level",
-      "salary": "$75,000 - $95,000",
-      "work_type": "Full-time",
-      "special": "Firewalls, Penetration Testing",
-      "is_public": true,
-      "author": "Isabella Moore",
-      "companyID": 11,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 12,
-      "slug": "blockchain-developer",
-      "title": "Blockchain Developer",
-      "description": "Develop decentralized applications and smart contracts...",
-      "experience": "3-5 years",
-      "environment": "Remote",
-      "level": "Senior",
-      "salary": "$100,000 - $130,000",
-      "work_type": "Full-time",
-      "special": "Solidity, Ethereum",
-      "is_public": true,
-      "author": "Alexander Lee",
-      "companyID": 12,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 13,
-      "slug": "mobile-developer",
-      "title": "Mobile Developer",
-      "description": "Build mobile applications for iOS and Android platforms...",
-      "experience": "2-4 years",
-      "environment": "Hybrid",
-      "level": "Mid-level",
-      "salary": "$70,000 - $90,000",
-      "work_type": "Full-time",
-      "special": "Swift, Kotlin",
-      "is_public": true,
-      "author": "Charlotte Harris",
-      "companyID": 13,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 14,
-      "slug": "seo-specialist",
-      "title": "SEO Specialist",
-      "description": "Optimize website content for search engines...",
-      "experience": "1-3 years",
-      "environment": "Remote",
-      "level": "Junior",
-      "salary": "$50,000 - $70,000",
-      "work_type": "Part-time",
-      "special": "Google Analytics, SEMrush",
-      "is_public": true,
-      "author": "Evelyn Clark",
-      "companyID": 14,
-      "type": "new",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 15,
-      "slug": "graphic-designer",
-      "title": "Graphic Designer",
-      "description": "Create visually appealing designs for marketing materials...",
-      "experience": "2-4 years",
-      "environment": "Hybrid",
-      "level": "Mid-level",
-      "salary": "$55,000 - $75,000",
-      "work_type": "Full-time",
-      "special": "Photoshop, Illustrator",
-      "is_public": true,
-      "author": "Mason Lewis",
-      "companyID": 15,
-      "type": "necw",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-    },
-    {
-      "jobID": 16,
-      "slug": "database-administrator",
-      "title": "Database Administrator",
-      "description": "Manage and maintain database systems...",
-      "experience": "3-5 years",
-      "environment": "On-site",
-      "level": "Mid-level",
-      "salary": "$80,000 - $100,000",
-      "work_type": "Full-time",
-      "special": "SQL Server, Oracle",
-      "is_public": false,
-      "author": "Lucas Young",
-      "companyID": 16,
-      "type": "necw",
-      "name": "Facebook",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+      "Skills": []
     }
-  ],
-  "pagination": {
-    "currentPage": 1,
-    "perPage": 50,
-    "totalPages": 1
-  }
+  ]
 }

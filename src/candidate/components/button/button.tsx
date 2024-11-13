@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({ name, isLoading, className }) => {
     return (
       <button
         type="submit"
-        className={`${className} text-white font-bold rounded-[10px]  bg-blue-main w-full h-[50px]  text-base `}
+        className={`${className} text-white font-bold rounded-md  bg-blue-500 w-full h-[50px]  text-base `}
       >
         {name}
       </button>

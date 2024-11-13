@@ -60,7 +60,7 @@ const Search: React.FC = () => {
       </div>
       <div className="lg:columns-4 md:columns-3 sm:columns-2">
         {Job.jobs.map((item) => (
-          <JobInfo search="." {...item}></JobInfo>
+          <JobInfo {...item}></JobInfo>
         ))}
       </div>
       {/* <ReactPaginate

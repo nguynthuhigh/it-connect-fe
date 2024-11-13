@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table } from "antd";
-import type { TableColumnsType, TableProps } from "antd";
+import type { TableColumnsType, TablePaginationConfig } from "antd";
 import VariantRole from "../../../shared/components/variant/variant-role";
 import VariantStatus from "../../../shared/components/variant/variant-status";
 import { useQuery } from "@tanstack/react-query";
@@ -8,17 +8,28 @@ import { getUser } from "../../services/api/user.api";
 import UserRole from "../../components/user/user-role";
 import { DataTypeUser } from "../../../shared/types/user";
 import ProtectedFeature from "../../components/protected/protected-feat";
-
+interface UsersPaginate {
+  data: DataTypeUser[];
+  pageCount: number;
+  total: number;
+}
 const Users: React.FC = () => {
-  const { data, isLoading } = useQuery<DataTypeUser[]>({
-    queryKey: ["user"],
-    queryFn: async () => await getUser(),
-  });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
+  const [pagination, setPagination] = useState({
+    current: 1,
+    limit: 5,
+  });
+
+  const { data, isLoading } = useQuery<UsersPaginate>({
+    queryKey: ["user", pagination.current, pagination.limit],
+    queryFn: async () => await getUser(pagination.current, pagination.limit),
+  });
+
   const handleOpenPopup = () => {
     setIsOpen(!isOpen);
   };
+
   const columns: TableColumnsType<DataTypeUser> = [
     {
       title: "#",
@@ -48,7 +59,7 @@ const Users: React.FC = () => {
       render: (_, { Roles }) => (
         <div className="flex space-x-2">
           {Roles.map((item) => (
-            <VariantRole role={item.name} />
+            <VariantRole key={item.name} role={item.name} />
           ))}
         </div>
       ),
@@ -92,28 +103,34 @@ const Users: React.FC = () => {
     },
   ];
 
-  const onChange: TableProps<DataTypeUser>["onChange"] = (
-    pagination,
-    filters,
-    sorter,
-    extra
-  ) => {
-    console.log("params", pagination, filters, sorter, extra);
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    setPagination((prev) => ({
+      ...prev,
+      current: pagination.current || 1,
+      pageSize: pagination.pageSize || 5,
+    }));
   };
+
   if (isLoading) return <div>...Loading</div>;
+
   return (
     <>
       <Table<DataTypeUser>
         columns={columns}
-        dataSource={data}
-        onChange={onChange}
-        pagination={false}
+        dataSource={data?.data}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.limit,
+          total: data?.total,
+        }}
+        loading={isLoading}
+        onChange={handleTableChange}
       />
       <UserRole
         handleOpenPopup={handleOpenPopup}
         isOpen={isOpen}
         userID={userId}
-      ></UserRole>
+      />
     </>
   );
 };

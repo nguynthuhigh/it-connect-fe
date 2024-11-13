@@ -12,7 +12,7 @@ interface JobInfoProps {
   experience: string;
   environment: string;
   level: string;
-  salary: number;
+  salary?: string;
   work_type: string;
   special: string;
   is_public: boolean;
