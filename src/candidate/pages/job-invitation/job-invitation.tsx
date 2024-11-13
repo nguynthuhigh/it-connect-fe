@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -35,6 +36,7 @@ const JobInvitationTabs: React.FC = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+  
 
   const renderJobs = (jobs: Job[]) => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -52,7 +54,7 @@ const JobInvitationTabs: React.FC = () => {
               experience={job.experience}
               environment={job.environment}
               level={job.level}
-              salary={job.salary}
+              // salary={job.salary}
               work_type={job.work_type}
               special={job.special}
               is_public={job.is_public}
@@ -163,3 +165,4 @@ const JobInvitationTabs: React.FC = () => {
 };
 
 export default JobInvitationTabs;
+

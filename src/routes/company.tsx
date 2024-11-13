@@ -6,6 +6,7 @@ import DetailPostJob from "../company/pages/job/detai-post-job";
 import { Sidebar } from "../shared/components/sidebar/sidebar";
 import { Outlet } from "react-router-dom";
 import BuyITC from "../company/pages/buy-itc/buy-itc";
+
 import Invitation from "../company/pages/invitations/invitation";
 
 const RootLayout = () => (

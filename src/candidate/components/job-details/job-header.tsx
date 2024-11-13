@@ -3,8 +3,8 @@ import IconBlueHeart from '../../assets/svg/icon_blueHeart.svg';
 import IconAddress from '../../assets/svg/icon_address.svg';
 import IconOffice from '../../assets/svg/icon_office.svg';
 import IconClock from '../../assets/svg/icon_clock.svg';
-import { useState } from 'react';
-import IconPopup from "../../assets/svg/icon_popup.svg"
+import { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
 
 const JobHeader = () => {
@@ -20,31 +20,61 @@ const JobHeader = () => {
 
   const skills = ['ReactJS', 'Javascript', 'NextJs'];
 
-
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedCV, setSelectedCV] = useState<string | null>(null);
+  const [selectedCV, setSelectedCV] = useState<File | null>(null);
+  const [useCurrentCV, setUseCurrentCV] = useState(false);
+  const [coverLetter, setCoverLetter] = useState('');
+  const [name, setName] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [showFileError, setShowFileError] = useState(false);
 
   const handleApplyNowClick = () => {
     setShowPopup(true);
   };
 
-  const handleSelectCV = (cv: string) => {
-    // Chỉ thay đổi selectedCV nếu cv chưa được chọn
-    setSelectedCV(prevSelectedCV => (prevSelectedCV === cv ? null : cv));
-  };
-
-  
   const handleClosePopup = () => {
     setShowPopup(false);
+    setName('');
     setSelectedCV(null);
+    setShowError(false);
+    setShowFileError(false);
+    setUseCurrentCV(false);
+    setCoverLetter('');
   };
 
   const btnSubmit = () => {
-    toast.success('Applied Successfully');
-    setShowPopup(false);
-    setSelectedCV(null);
-  }
+    if (!name.trim()) {
+      setShowError(true);
+      return;
+    }
 
+    if (!useCurrentCV && !selectedCV) {
+      setShowFileError(true);
+      return;
+    }
+    
+    toast.success('Applied Successfully');
+    handleClosePopup();
+  };
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      setSelectedCV(acceptedFiles[0]);
+      setUseCurrentCV(false);
+      setShowFileError(false);
+    }
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+    },
+    maxFiles: 1,
+    maxSize: 3 * 1024 * 1024, // 3MB
+  });
 
   return (
     <div className="bg-gradient-to-b px-5 py-10 from-[#78B6FF] to-[#3B95FF]">
@@ -98,65 +128,92 @@ const JobHeader = () => {
               </button>
 
               <div className="text-[23px] font-semibold mb-4 text-[#393939]">
-                Master - Frontend ReactJS Dev (JavaScript, HTML5) tại ITC Company
+                Master - Frontend ReactJS Dev (JavaScript, HTML5) at ITC Company
               </div>
 
-              <div className="mb-4 flex justify-center">
-                <input
-                  type="text"
-                  placeholder="Họ và Tên"
-                  className="w-full p-4 sm:px-4 focus:outline-none focus:border focus:ring-[#0094df] hover:border-[#0094df] hover:ring-1 focus:ring-1 focus:border-[#0094df] placeholder-[#969696] h-[58px] border border-[#969696] rounded"
-                />
-              </div>
+              <div className='font-semibold text-[18px]'>Full name</div>
+              <input
+                type="text"
+                placeholder="Enter full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-4 focus:outline-none border border-gray-300 rounded mt-2"
+              />
+              {showError && <p className="text-red-500 mt-1 text-sm">Full Name is required.</p>}
 
-              <div className="space-y-4 pb-10">
-                {['CV 001.pdf', 'CV 002.pdf'].map((cv, index) => (
-                  <div
-                    key={index}
-                    className={`p-4 rounded hover:border-blue-400 hover:border cursor-pointer ${
-                      selectedCV === cv ? 'border border-blue-400 text-[#0094df] bg-blue-50' : 'border border-gray-300'
-                    }`}
-                    onClick={() => handleSelectCV(cv)}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          name="cv"
-                          checked={selectedCV === cv}
-                          readOnly
-                          className="mr-2"
-                        />
-                        <span className="font-semibold">{cv}</span>
-                        <p className="ml-3 w-[300px] text-gray-600">
-                          {selectedCV === cv
-                            ? `Bạn đã chọn ${cv} để gửi đến ITC, chúc may mắn!`
-                            : 'Hãy làm cho chúng tôi có ấn tượng với bạn, chúc may mắn!'}
-                        </p>
+              <div className="font-semibold mt-4 text-[18px]">Your CV</div>
+              <div className="flex-col items-center border-gray-300 rounded border px-4 py-3 focus:border-[#0094df] focus:border gap-3 mt-2">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    className='w-5 h-5'
+                    checked={useCurrentCV}
+                    onChange={() => {
+                      setUseCurrentCV(true);
+                      setSelectedCV(null);
+                    }}
+                  />
+                  <span className="ml-2">Use your current CV</span>
+                </label>
+                <span className="text-blue-500 cursor-pointer ml-7">Test CV.pdf</span>
+              </div>
+              <div className="flex-col border border-gray-300 px-4 py-3 rounded items-center gap-3 mt-3">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    className='w-5 h-5'
+                    checked={!useCurrentCV}
+                    onChange={() => setUseCurrentCV(false)}
+                  />
+                  <span className="ml-2">Upload new CV</span>
+                </label>
+                <div
+                  {...getRootProps()}
+                  className={`px-4 pt-2 cursor-pointer ${
+                    selectedCV ? 'text-blue-500' : 'border-gray-300'
+                  }`}
+                >
+                  <input {...getInputProps()} />
+                  {selectedCV ? (
+                    <div className='ml-3 flex-col'>
+                      <div className='flex gap-2 items-center'>
+                        <p className='border w-fit px-2 py-1 text-black'>Choose File</p>
+                        <p>{selectedCV.name}</p>
                       </div>
-                      <div className="flex justify-end items-end text-end">
-                        <img className="" src={IconPopup} alt="" />
+                      <div className='text-black my-1'>
+                        You have selected <span className='text-blue-500'>{selectedCV.name}</span> for submission to ITConnect. Good luck!
                       </div>
                     </div>
-
-                    {selectedCV === cv && (
-                      <div className="mt-4 pt-2 border-t-2 border-blue-400">
-                        <h2 className="text-lg font-semibold mb-2">Thư xin việc</h2>
-                        <textarea
-                          placeholder="Liệt kê những điểm mạnh của bạn để chúng tôi biết năng lực của bạn hấp dẫn như thế nào nhé!"
-                          className="w-full p-3 sm:p-4 text-black h-[100px] border border-gray-300 rounded focus:ring-2 focus:outline-none"
-                          onClick={(e) => e.stopPropagation()} // Ngăn sự kiện onClick lan truyền
-                        />
+                  ) : (
+                    <div className='flex-col gap-3 items-center'>
+                      <div className='ml-3'>
+                        <p className='border w-fit px-2 py-1'>Choose File</p>
                       </div>
-                    )}
-                  </div>
-                ))}
+                      <div className='mt-1 ml-3'>
+                        <p className='text-[#A6A6A6] text-[14px] font-semibold'>
+                          Supports .doc, .docx, .pdf, up to 3MB
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
+              {showFileError && <p className="text-red-500 mt-1 text-sm">Please select a file.</p>}
 
-              <div className='flex justify-center'>
+              <div className="font-semibold mt-4 text-[18px]">Cover Letter</div>
+              <textarea
+                placeholder="What skills, work projects or achievements make you a strong candidate?"
+                value={coverLetter}
+                onChange={(e) => setCoverLetter(e.target.value)}
+                className="w-full p-4 border border-gray-300 rounded mt-2"
+                maxLength={500}
+              />
+              <p className="text-gray-500 text-right">{500 - coverLetter.length} characters remaining</p>
+
+              <div className="flex justify-center mt-6">
                 <button 
-                  className='bg-[#0094df] text-white px-5 hover:ring rounded-full py-2'
-                  onClick={btnSubmit}  
+                  className="bg-blue-500 text-white px-5 py-2 rounded-full"
+                  onClick={btnSubmit}
                 >
                   Apply Now
                 </button>
@@ -164,7 +221,6 @@ const JobHeader = () => {
             </div>     
           </div>
         )}
-
       </div>
       <ToastContainer/>
     </div>
