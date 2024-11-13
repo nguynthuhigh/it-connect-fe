@@ -15,7 +15,7 @@ import CvManage from "../candidate/pages/authentication/manage-cv";
 import MyJobs from "../candidate/pages/authentication/my-jobs";
 import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 import RegisterCompany from "../company/pages/register-company/register-company";
-
+import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
 const HeaderLayout = () => {
   return (
     <div style={{ display: "flex" }}>
@@ -79,6 +79,10 @@ export const CandidateRoute = {
     {
       path: "register-company",
       element: <RegisterCompany></RegisterCompany>,
+    },
+    {
+      path: "job-invitation",
+      element: <JobInvitationTabs></JobInvitationTabs>,
     },
     {
       path: "my-jobs",
