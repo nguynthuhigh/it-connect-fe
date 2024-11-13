@@ -1,6 +1,5 @@
-import axiosInstance from "../../../shared/axios/instance";
-
+import axiosInstance from "../axios/axios.intance";
 export const findCompanyBySlug = async (slug: string) => {
-  const res = await axiosInstance.get(`/api/v1/candidate/company/${slug}`);
+  const res = await axiosInstance.get(`/candidate/company/${slug}`);
   return res.data;
 };
