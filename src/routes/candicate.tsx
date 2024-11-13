@@ -21,6 +21,7 @@ import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
 
 import RegisterCompany from "../candidate/pages/register-company/register-company";
 import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
+import ApplyJob from "../candidate/pages/apply-job/apply-job";
 
 const HeaderLayout = () => (
   <div style={{ display: "flex" }}>
@@ -110,6 +111,10 @@ export const CandidateRoute = {
     {
       path: "register-company",
       element: <RegisterCompany />,
+    },
+    {
+      path: "apply-job",
+      element: <ApplyJob />,
     },
   ],
 };
