@@ -11,21 +11,22 @@ import Search from "../candidate/pages/search-job";
 import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
 import MyAccount from "../candidate/pages/authentication/my-account";
-import CvManage from "../candidate/pages/authentication/manage-cv"
-import WriteReview from "../candidate/pages/company/write-review"
-import Setting from "../candidate/pages/authentication/setting"
-import MyJobs from "../candidate/pages/authentication/my-jobs"
+import CvManage from "../candidate/pages/authentication/manage-cv";
+import MyJobs from "../candidate/pages/authentication/my-jobs";
 import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
+import RegisterCompany from "../company/pages/register-company/register-company";
 
-const HeaderLayout = () => (
-  <div style={{ display: "flex" }}>
-    <Header />
-    <div style={{ flexGrow: 1, paddingTop: 80 }}>
-      <Outlet />
-      <Footer></Footer>
+const HeaderLayout = () => {
+  return (
+    <div style={{ display: "flex" }}>
+      <Header />
+      <div style={{ flexGrow: 1, paddingTop: 80 }}>
+        <Outlet />
+        <Footer></Footer>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 export const CandidateRoute = {
   path: "/",
   element: <HeaderLayout></HeaderLayout>,
@@ -35,7 +36,7 @@ export const CandidateRoute = {
       element: <Home />,
     },
     {
-      path: "company",
+      path: "company/:slug",
       element: <CompanyDetails />,
     },
     {
@@ -51,7 +52,7 @@ export const CandidateRoute = {
       element: <CompanyWriteReviews />,
     },
     {
-      path: "job-details",
+      path: "job",
       element: <JobDetail />,
     },
     {
@@ -63,7 +64,7 @@ export const CandidateRoute = {
       element: <Login />,
     },
     {
-      path: "form-verify",
+      path: "register/verify",
       element: <FormVerify />,
     },
 
@@ -76,6 +77,10 @@ export const CandidateRoute = {
       element: <CvManage />,
     },
     {
+      path: "register-company",
+      element: <RegisterCompany></RegisterCompany>,
+    },
+    {
       path: "my-jobs",
       element: <MyJobs />,
       children: [
@@ -84,11 +89,10 @@ export const CandidateRoute = {
           element: <SavedJobs />,
         },
         {
-          
           path: "",
           element: <SavedJobs />,
         },
       ],
-    }
+    },
   ],
 };

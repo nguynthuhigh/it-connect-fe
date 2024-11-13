@@ -22,7 +22,7 @@ const VariantRole: React.FC<{ role: string }> = ({ role }) => {
           {Role}
         </div>
       );
-    case "support staff":
+    case "support":
       return (
         <div className="bg-yellow-50 text-yellow-500 border-yellow-500  border-[2px] rounded-full w-fit px-1.5 text-sm font-semibold">
           {Role}

@@ -9,13 +9,17 @@ import CompanyList from "../admin/pages/company/company-list";
 import { Outlet } from "react-router-dom";
 import ProtectedRoute from "../admin/components/protected/protected-route";
 import { IPermission } from "../shared/types/permission";
-import { getUserPermissionAPI } from "../admin/services/api/permission";
+import { getUserPermissionAPI } from "../admin/services/api/permission.api";
 import { useQuery } from "@tanstack/react-query";
 import DetailCompany from "../admin/pages/company/detail-company";
 import AdminLogin from "../admin/pages/authentication/admin-login";
 
 const RootLayoutAdmin = () => {
-  const { data: userPermissions, isLoading, error } = useQuery<IPermission[]>({
+  const {
+    data: userPermissions,
+    isLoading,
+    error,
+  } = useQuery<IPermission[]>({
     queryKey: ["user-permission"],
     queryFn: getUserPermissionAPI,
   });
@@ -43,32 +47,17 @@ export const AdminRoute = {
     },
     {
       path: "sys-roles",
-      element: (
-        <ProtectedRoute
-          resource="role"
-          action="view"
-        />
-      ),
+      element: <ProtectedRoute resource="role" action="view" />,
       children: [{ path: "", element: <Role /> }],
     },
     {
       path: "company-roles",
-      element: (
-        <ProtectedRoute
-          resource="company"
-          action="view"
-        />
-      ),
+      element: <ProtectedRoute resource="company" action="view" />,
       children: [{ path: "", element: <CompanyRole /> }],
     },
     {
       path: "users",
-      element: (
-        <ProtectedRoute
-          resource="user"
-          action="view"
-        />
-      ),
+      element: <ProtectedRoute resource="user" action="view" />,
       children: [{ path: "", element: <User /> }],
     },
     {

@@ -4,12 +4,15 @@ interface InputProps {
   title: string;
   placeholder: string;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
 const Input: React.FC<InputProps> = ({
   name,
   title,
   placeholder,
   className,
+  onChange,
 }) => {
   return (
     <div className={`flex-col ${className}`}>
@@ -17,9 +20,11 @@ const Input: React.FC<InputProps> = ({
         {title}
       </label>
       <input
+        required
         name={name}
         placeholder={placeholder}
-        className="border rounded-[4px] mt-1 p-[12px] w-full bg-gray-50"
+        className="border rounded-[4px] mt-1 p-[12px] w-full bg-white"
+        onChange={onChange}
       ></input>
     </div>
   );
