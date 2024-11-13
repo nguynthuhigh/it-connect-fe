@@ -6,7 +6,7 @@ import IconPrevios from '../../assets/svg/iconPrevious.svg'
 import IconNext from '../../assets/svg/iconNext.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ImageMap from '../../assets/png/map.png'
+// import ImageMap from '../../assets/png/map.png'
 import { Button, DatePicker } from 'antd';
 // import ListTransaction from "../../components/company/list-transaction";
 
@@ -84,7 +84,7 @@ const DetailCompany = () => {
                                 <p className="font-bold italic text-[#7F8394] mt-4 mb-2">Location</p>
 
                                     <p className="font-semibold text-[#8B8C91] w-[420px] bg-[#D7EAFD] py-2 px-4">Su Van Hanh, District 10, Ho Chi Minh</p>
-                                    <img src={ImageMap} alt="Map" />
+                                    {/* <img src={ImageMap} alt="Map" /> */}
                                 </div>
                             </div>
                         </div>

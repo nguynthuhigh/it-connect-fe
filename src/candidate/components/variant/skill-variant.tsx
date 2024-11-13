@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizeFirstLetter } from "../../../shared/utils/utils";
 
 const SkillVariant: React.FC<{ skill: string }> = ({ skill }) => {
   switch (skill) {
@@ -42,12 +43,20 @@ const SkillVariant: React.FC<{ skill: string }> = ({ skill }) => {
           <h1 className="text-sm">Blockchain</h1>
         </div>
       );
+    case "typescript":
+      return (
+        <div
+          className={`border-indigo-400 py-0.5 px-2.5 border-[2px] font-semibold text-indigo-500 rounded-full bg-indigo-50`}
+        >
+          <h1 className="text-sm">Typescript</h1>
+        </div>
+      );
     default:
       return (
         <div
           className={`border-black py-0.5 px-2.5 border-[2px] font-semibold text-black rounded-full`}
         >
-          <h1 className="text-sm">Python</h1>
+          <h1 className="text-sm">{capitalizeFirstLetter(skill)}</h1>
         </div>
       );
   }

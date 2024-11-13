@@ -4,6 +4,7 @@ import Working from "../../assets/svg/working.svg";
 import Location from "../../assets/svg/location.svg";
 import JobVariant from "../variant/job-variant";
 import SkillVariant from "../variant/skill-variant";
+import { Skill } from "../../types/company";
 interface JobInfoProps {
   type: string;
   title: string;
@@ -11,15 +12,15 @@ interface JobInfoProps {
   experience: string;
   environment: string;
   level: string;
-  salary: string;
+  salary?: string;
   work_type: string;
   special: string;
   is_public: boolean;
-  author: string;
   companyID: number;
   name: string;
   logo: string;
   search?: string;
+  Skills: Skill[];
 }
 const JobInfo: React.FC<JobInfoProps> = (props) => {
   return (
@@ -48,9 +49,9 @@ const JobInfo: React.FC<JobInfoProps> = (props) => {
           </ul>
         </div>
         <div className="my-2 flex space-x-2">
-          <SkillVariant skill="python"></SkillVariant>
-          <SkillVariant skill="nodejs"></SkillVariant>
-          <SkillVariant skill="react"></SkillVariant>
+          {props.Skills.map((item: Skill) => (
+            <SkillVariant skill={item.name.toLowerCase()}></SkillVariant>
+          ))}
         </div>
         {props.search ? (
           props.type === "super-hot" && (

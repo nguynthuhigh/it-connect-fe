@@ -20,6 +20,7 @@ import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
 
 import RegisterCompany from "../candidate/pages/register-company/register-company";
+import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
 
 const HeaderLayout = () => (
   <div style={{ display: "flex" }}>
@@ -27,9 +28,9 @@ const HeaderLayout = () => (
     <div style={{ flexGrow: 1, paddingTop: 80 }}>
       <Outlet />
       <Footer></Footer>
+      </div>
     </div>
-  </div>
-);
+  );
 export const CandidateRoute = {
   path: "/",
   element: <HeaderLayout></HeaderLayout>,
@@ -39,7 +40,7 @@ export const CandidateRoute = {
       element: <Home />,
     },
     {
-      path: "company",
+      path: "company/:slug",
       element: <CompanyDetails />,
     },
     {
@@ -67,7 +68,7 @@ export const CandidateRoute = {
       element: <Login />,
     },
     {
-      path: "form-verify",
+      path: "register/verify",
       element: <FormVerify />,
     },
 
@@ -80,6 +81,14 @@ export const CandidateRoute = {
       element: <CvManage />,
     },
     {
+      path: "register-company",
+      element: <RegisterCompany></RegisterCompany>,
+    },
+    {
+      path: "job-invitation",
+      element: <JobInvitationTabs></JobInvitationTabs>,
+    },
+    {
       path: "my-jobs",
       element: <MyJobs />,
       children: [
@@ -88,7 +97,6 @@ export const CandidateRoute = {
           element: <SavedJobs />,
         },
         {
-          
           path: "",
           element: <SavedJobs />,
         },

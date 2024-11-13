@@ -1,18 +1,14 @@
-import axiosInstance from "../../../shared/axios/instance";
-interface DataType {
-  photo: string;
-  name: string;
-  email: string;
-  Roles: [
-    {
-      name: string;
-    }
-  ];
-  createdAt: Date;
-  status: string;
-  invitationID: string;
+import { DataTypeUser } from "../../../shared/types/user";
+import axiosInstance from "../axios/axios.instance";
+interface UsersPaginate {
+  data: DataTypeUser[];
+  pageCount: number;
+  total: number;
 }
-export const getUser = async (): Promise<DataType[]> => {
-  const res = await axiosInstance.get("/api/v1/user");
+export const getUser = async (
+  page: number,
+  limit: number
+): Promise<UsersPaginate> => {
+  const res = await axiosInstance.get(`/user?limit=${limit}&page=${page}`);
   return res.data;
 };

@@ -1,56 +1,78 @@
-import OTPInput from 'react-otp-input';
-import { useState, SetStateAction } from 'react';
-
-const FormVerify = () => {
+import OTPInput from "react-otp-input";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import LoadingIcon from "../../assets/svg/loading.svg";
+import { ErrorWithResponse } from "../../types/error";
+import { verifySignUp } from "../../services/api/auth.api";
+import { setCookie } from "../../../shared/utils/cookie";
+const FormVerify: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { email } = location.state || {};
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [error, setError] = useState<string>();
+  const { mutate, isPending, data } = useMutation<{ accessToken: string }>({
+    mutationFn: async () => {
+      return await verifySignUp({
+        otp,
+        email,
+      });
+    },
+    onSuccess: () => {
+      setCookie("at_itc", data?.accessToken as string);
+      navigate("/", {
+        state: { email: email },
+      });
+    },
+    onError: (e: unknown) => {
+      const error = e as ErrorWithResponse;
+      setError(error?.response?.data?.message);
+    },
+  });
   const handleChangeOTP = (newOtp: string) => {
-    console.log("New OTP:", newOtp); // Debugging
     setOtp(newOtp);
+    if (newOtp.length >= 6) {
+      mutate();
+    }
   };
-
   return (
-    <div className='flex justify-center mt-[120px]'>
-      <div className='flex text-center rounded-lg shadow-lg'>
-        <div className='p-20'>
-          <div className='flex justify-center'>
-            <img src='' alt="logo ITC" />
-          </div>
-          <h1 className='font-bold text-[26px] mt-10'>Yêu cầu xác thực</h1>
-          <p className='font-medium mt-3'>Vui lòng nhập mã mà chúng tôi đã</p>
-          <h2 className='font-medium'>gửi tới <span className='text-[#0094df] font-semibold'>example@gmail.com</span>.</h2>
-          <div className='mt-10'>
-            <div className='flex justify-center gap-2'>
-              <OTPInput
-                value={otp}
-                onChange={handleChangeOTP}
-                numInputs={6}
-                inputType="text"
-                renderInput={({ style, className: propClassName, ...props }) => (
-                  <input
-                    style={style}
-                    className={`bg-slate-100 mx-1 focus:outline-none focus:border-[#0094df] text-[#0094df] focus:border-2 rounded-md h-12 text-[32px]${
-                      
-                      error ? "border-red-500" : ""
-                    } ${isLoading ? "cursor-not-allowed bg-gray-200" : ""} ${propClassName || ""}`}
-                    disabled={isLoading}
-                    {...props}
-                  />
-                )}
+    <div className="max-w-[500px] w-full mx-auto mt-[120px] text-center">
+      <div className="rounded-lg shadow-lg">
+        <div className="p-20">
+          <h1 className="font-bold text-[26px] mt-10">Verify your account</h1>
+          <p className="font-medium mt-3">Please enter the code we sent to</p>
+          <h2 className="font-medium">
+            <span className="text-[#0094df] font-semibold">{email}</span>
+          </h2>
+          <div className="mt-10 mx-auto w-fit">
+            <OTPInput
+              value={otp}
+              onChange={handleChangeOTP}
+              numInputs={6}
+              inputType="tel"
+              renderInput={({ style, className = "", ...props }) => (
+                <input
+                  className={`text-center ${style} font-semibold text-2xl border max-sm:w-8 max-sm:h-8 w-10 h-10 mx-2 focus:outline-blue-default bg-gray-50 rounded-md ${className} ${
+                    error ? "border-red-500" : ""
+                  } ${isPending ? "cursor-not-allowed bg-gray-200" : ""}`}
+                  disabled={isPending}
+                  {...props}
+                />
+              )}
+            />
+            {isPending && (
+              <img
+                className={`animate-spin absolute -top-[35%] text-center right-[50%] left-[50%]`}
+                src={LoadingIcon}
+                alt="Loading"
               />
-            </div>
-          </div>
-          <div className='mt-20'>
-            <button className='bg-[#0094df] px-10 py-3 text-white rounded-full font-medium hover:bg-[#3b9cccd8]'>
-              Tiếp tục
-            </button>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default FormVerify;

@@ -1,14 +1,41 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-import VisibleIcon from "../../assets/svg/visible_eye.svg";
-import InvisibleIcon from "../../assets/svg/invisible_eye.svg";
+// import VisibleIcon from "../../assets/svg/visible_eye.svg";
+// import InvisibleIcon from "../../assets/svg/invisible_eye.svg";
+import { useMutation } from "@tanstack/react-query";
+import Input from "../../../shared/components/input-pattern/input";
+import { signUp } from "../../services/api/auth.api";
+import { ErrorWithResponse } from "../../types/error";
+import Button from "../../components/button/button";
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [error, setError] = useState<{
+    signUp?: string;
+  }>();
   const navigate = useNavigate();
+  const { mutate, isPending } = useMutation({
+    mutationFn: async () => {
+      return await signUp({
+        email,
+        password,
+      });
+    },
+    onError: (e: unknown) => {
+      const error = e as ErrorWithResponse;
+      setError({
+        signUp: error?.response?.data?.message,
+      });
+    },
+    onSuccess: () => {
+      navigate("/register/verify", {
+        state: { email: email },
+      });
+    },
+  });
   const registerCheck = z
     .object({
       email: z.string().email("Invalid email format"),
@@ -19,34 +46,21 @@ const Register: React.FC = () => {
       confirmPassword: z.string().min(1, "Confirm password is required"),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      //Khai bao kiem tra tu chon
       message: "Passwords don't match",
       path: ["confirmPassword"],
     });
-  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>(false);
+
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       registerCheck.parse({
-        //kiem tra du lieu o trong registerCheck
         email,
         password,
         confirmPassword,
       });
-      const newUser = {
-        email,
-        password,
-      };
-      localStorage.setItem("registeredUser", JSON.stringify(newUser));
-      setIsSignUpSuccess(true);
-      // Chuyen toi trang login sau 1s
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000);
+      mutate();
     } catch (error) {
       if (error instanceof z.ZodError) {
-        //Kiem tra loi co phai do zod tao ra hay ko
         const errorMessages: Record<string, string> = {};
         error.errors.forEach((err) => {
           errorMessages[err.path[0] as string] = err.message;
@@ -57,137 +71,99 @@ const Register: React.FC = () => {
   };
   const hideError = () => {
     if (Object.keys(errors).length > 0) {
-      setErrors({}); //an thong bao loi
+      setErrors({});
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-  // An/hien pass va confirm pass
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
+  // const toggleConfirmPasswordVisibility = () => {
+  //   setShowConfirmPassword(!showConfirmPassword);
+  // };
   return (
-    <div className="min-h-screen flex font-inter justify-center items-start">
-      <div className="sm:w-full sm:max-w-[568px] sm:p-0 p-4 space-y-3">
-        <div className="flex flex-col justify-center items-center">
-          <h2 className="mt-10 text-center text-[32px] sm:text-[40px] font-bold">
-            New account, new jobs!
-          </h2>
-        </div>
-        <form onSubmit={handleRegister}>
-          <div>
-            <label className="text-[16px] sm:text-[20px] font-semibold">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onClick={hideError}
-              className="block w-[400px] sm:w-full h-[50px] sm:h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
-              placeholder="Enter email"
-            />
-            {errors.email && (
-              <p className="text-red-400 text-sm">{errors.email}</p>
-            )}
-          </div>
-          <div className="mt-5 relative">
-            <label className="text-[16px] sm:text-[20px] font-semibold">Password</label>
-            <input
-              id="password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onClick={hideError}
-              className="block w-full h-[50px] sm:h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
-              placeholder="Enter password"
-            />
-            <img
-              src={showPassword ? InvisibleIcon : VisibleIcon}
-              alt="Toggle Password Visibility"
-              className="absolute inset-y-2 right-0 pr-4 h-5 w-9 mt-[36px] sm:mt-12 cursor-pointer"
-              onClick={togglePasswordVisibility}
-            />
-            {errors.password && (
-              <p className="text-red-400 text-sm">{errors.password}</p>
-            )}
-          </div>
-          <div className="mt-5 relative">
-            <label className="text-[16px] sm:text-[20px] font-semibold">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              onClick={hideError}
-              className="block w-full h-[50px] sm:h-[60px] border rounded-md border-[#BDBDBD] focus:border-[#0094df] focus:outline-none focus:ring-2 hover:ring-1 px-3 mt-1"
-              placeholder="Confirm password"
-            />
-            <img
-              src={showConfirmPassword ? InvisibleIcon : VisibleIcon}
-              alt="Toggle Password Visibility"
-              className="absolute inset-y-2 right-0 pr-4 h-5 w-9 mt-[36px] sm:mt-12 cursor-pointer"
-              onClick={toggleConfirmPasswordVisibility}
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-400 text-sm">{errors.confirmPassword}</p>
-            )}
-          </div>
-          <div className="mt-3 py-1">
-            <a href="" className="text-[#0075FF] text-[16px] sm:text-[20px] flex items-center justify-end font-medium">
-              Forgotten password
-            </a>
-          </div>
-          <div className="mt-3 flex items-center justify-center">
-            <button type="submit" className="text-white font-bold rounded-[10px] sm:rounded-[15px] bg-blue-main w-full h-[50px] sm:h-[60px] text-base sm:text-lg">
-              Sign Up
-            </button>
-          </div>
-        </form>
-        <div className="text-center pt-2">
-          <p className="text-[16px] sm:text-[20px] text-gray-600">
-            Already have an account?{" "}
-            <a href="/login" className="text-blue-main font-semibold">
-              Sign in now!
-            </a>
-          </p>
-        </div>
-        <div className="relative flex py-1 items-center">
-          <div className="flex-grow border-t border-[#BDBDBD]"></div>
-          <span className="mx-8 text-[16px] sm:text-[20px]">Or</span>
-          <div className="flex-grow border-t border-[#BDBDBD]"></div>
-        </div>
-        <div className="pt-1">
-          <a
-            href="https://sso-pointer.vercel.app/authorize?clientId=66f38b1441aea9e24920e456"
-            type="button"
-            className="w-full border-[2px] border-[#4285F4] text-[#4285F4] focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mb-2"
-          >
-            <img
-              alt="pointer logo"
-              className="mr-2 -ml-1 w-6 h-6 border-white border rounded-full"
-              src="https://i.imgur.com/5cYzRrm.png"
-            />
-            Sign in with Pointer<div></div>
-          </a>
-        </div>
-        {isSignUpSuccess && (
-          <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black bg-opacity-50">
-            <div className="bg-white p-4 rounded-md shadow-lg text-center">
-              <h2 className="text-2xl font-bold text-green-600">
-                Sign Up Successful!
+    <form className="bg-white" onSubmit={handleRegister}>
+      <div className="flex  bg-gray-100 w-full h-screen">
+        <div className="flex flex-row-reverse w-full items-center justify-center bg-gray-100">
+          <div className="max-w-[1280px] w-full h-[550px] flex shadow-lg rounded-lg">
+            <div className="w-1/2 bg-gray-200 flex flex-col items-center justify-center p-10 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-300 to-indigo-500 opacity-20"></div>
+              <div className="relative text-center">
+                <h1 className="text-4xl font-bold text-[#0094FF] mb-5">
+                  IT Connected
+                </h1>
+                <div className="absolute -top-10 -left-56 w-40 h-40 bg-[#89E5DC] rounded-full opacity-70"></div>
+                <div className="absolute bottom-32 -right-44 w-56 h-56 bg-[#34A4F7] rounded-full opacity-80"></div>
+                <div className="absolute top-40 left-32 w-20 h-20 bg-[#EBB6DA] rounded-full opacity-80"></div>
+                <div className="mt-5 space-x-4 text-[#585858]">
+                  <Link to="#">About</Link>
+                  <Link to="#">Privacy</Link>
+                  <Link to="#">Terms of Use</Link>
+                  <Link to="#">FAQ</Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-1/2 bg-white p-20 flex flex-col justify-center">
+              <h2 className="text-3xl font-semibold text-center text-[#585858] mb-6">
+                Sign Up
               </h2>
-              <p className="mt-2">Redirecting to login page...</p>
+              <div className="space-y-5">
+                <div>
+                  <Input
+                    name={"email"}
+                    title={"Email"}
+                    placeholder={"Enter your email"}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onClick={hideError}
+                  />
+                  {errors.email && (
+                    <p className="text-red-400 text-sm">{errors.email}</p>
+                  )}
+                </div>
+                <div>
+                  <Input
+                    name={"password"}
+                    title={"Password"}
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={"Enter your password"}
+                    onClick={hideError}
+                  />
+
+                  {errors.password && (
+                    <p className="text-red-400 text-sm">{errors.password}</p>
+                  )}
+                </div>
+                <div>
+                  <Input
+                    name={"confirmPassword"}
+                    title={"Confirm Password"}
+                    onClick={hideError}
+                    type="password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder={"Enter your password"}
+                  />
+                  {errors.confirmPassword && (
+                    <p className="text-red-400 text-sm text-center">
+                      {errors.confirmPassword}
+                    </p>
+                  )}
+                </div>
+                <p className="text-red-400 text-sm"> {error?.signUp}</p>
+                <Button isLoading={isPending} name="Sign Up"></Button>
+                <div className="text-center mt-3">
+                  <Link to="#" className="text-[#34A4F7] hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 
