@@ -37,7 +37,7 @@ const path = [
   },
   {
     pathname: "/admin/sys-roles",
-    name: "System Roles",
+    name: "Roles",
     icon: Jobs,
     id: "role",
     icon_gray: JobsGray,

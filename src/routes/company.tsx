@@ -1,4 +1,3 @@
-import Invitations from "../company/pages/invitations";
 import AddNewPost from "../company/pages/job/post-new-job";
 import Index from "../company/pages/job";
 import Draft from "../candidate/pages/draft/draft";
@@ -28,10 +27,6 @@ export const CompanyRoute = {
     {
       path: "dashboard",
       element: <Draft></Draft>,
-    },
-    {
-      path: "invitations",
-      element: <Invitations></Invitations>,
     },
 
     {

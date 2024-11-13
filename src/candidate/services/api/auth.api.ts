@@ -16,6 +16,6 @@ interface ISignUp {
   otp: string;
 }
 export const verifySignUp = async (body: ISignUp) => {
-  const res = await axiosInstance.post(`/auth/verify/sign-in`, body);
+  const res = await axiosInstance.post(`/auth/verify/sign-up`, body);
   return res.data;
 };

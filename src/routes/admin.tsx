@@ -1,6 +1,4 @@
 import Dashboard from "../admin/pages/home/dashboard";
-import LoginAdmin from "../admin/pages/authentication/login";
-import ManageUser from "../admin/pages/manage-user/manage-user";
 import { SidebarAdmin } from "../shared/components/sidebar/sidebar-admin";
 import Role from "../admin/pages/role/system-role";
 import User from "../admin/pages/user";
@@ -12,8 +10,6 @@ import { IPermission } from "../shared/types/permission";
 import { getUserPermissionAPI } from "../admin/services/api/permission.api";
 import { useQuery } from "@tanstack/react-query";
 import DetailCompany from "../admin/pages/company/detail-company";
-import AdminLogin from "../admin/pages/authentication/admin-login";
-
 const RootLayoutAdmin = () => {
   const {
     data: userPermissions,
@@ -60,26 +56,15 @@ export const AdminRoute = {
       element: <ProtectedRoute resource="user" action="view" />,
       children: [{ path: "", element: <User /> }],
     },
-    {
-      path: "login-admin",
-      element: <LoginAdmin />,
-    },
-    {
-      path: "manage-user",
-      element: <ManageUser />,
-    },
+
     {
       path: "company-list",
       element: <CompanyList />,
     },
 
     {
-      path: "detail-company", 
+      path: "detail-company",
       element: <DetailCompany />,
-    },
-    {
-      path: "admin-login",
-      element: <AdminLogin />,
     },
   ],
 };

@@ -1,18 +1,33 @@
 import OTPInput from "react-otp-input";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import LoadingIcon from "../../assets/svg/loading.svg";
+import { ErrorWithResponse } from "../../types/error";
+import { verifySignUp } from "../../services/api/auth.api";
+import { setCookie } from "../../../shared/utils/cookie";
 const FormVerify: React.FC = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { email } = location.state || {};
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { mutate } = useMutation({
+  const [error, setError] = useState<string>();
+  const { mutate, isPending, data } = useMutation<{ accessToken: string }>({
     mutationFn: async () => {
-      console.log("New OTP:", otp);
-      console.log("email: ", email);
+      return await verifySignUp({
+        otp,
+        email,
+      });
+    },
+    onSuccess: () => {
+      setCookie("at_itc", data?.accessToken as string);
+      navigate("/", {
+        state: { email: email },
+      });
+    },
+    onError: (e: unknown) => {
+      const error = e as ErrorWithResponse;
+      setError(error?.response?.data?.message);
     },
   });
   const handleChangeOTP = (newOtp: string) => {
@@ -21,7 +36,6 @@ const FormVerify: React.FC = () => {
       mutate();
     }
   };
-
   return (
     <div className="max-w-[500px] w-full mx-auto mt-[120px] text-center">
       <div className="rounded-lg shadow-lg">
@@ -41,13 +55,13 @@ const FormVerify: React.FC = () => {
                 <input
                   className={`text-center ${style} font-semibold text-2xl border max-sm:w-8 max-sm:h-8 w-10 h-10 mx-2 focus:outline-blue-default bg-gray-50 rounded-md ${className} ${
                     error ? "border-red-500" : ""
-                  } ${isLoading ? "cursor-not-allowed bg-gray-200" : ""}`}
-                  disabled={isLoading}
+                  } ${isPending ? "cursor-not-allowed bg-gray-200" : ""}`}
+                  disabled={isPending}
                   {...props}
                 />
               )}
             />
-            {isLoading && (
+            {isPending && (
               <img
                 className={`animate-spin absolute -top-[35%] text-center right-[50%] left-[50%]`}
                 src={LoadingIcon}

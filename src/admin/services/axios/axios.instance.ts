@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getCookie } from "../utils/cookie";
+import { getCookie } from "../../../shared/utils/cookie";
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  baseURL: import.meta.env.VITE_APP_API_URL + "/api/v1/admin",
   timeout: 1000,
   headers: {
     Authorization: "Bearer " + getCookie("at-adm"),

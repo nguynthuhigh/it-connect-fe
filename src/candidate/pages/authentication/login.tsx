@@ -7,14 +7,8 @@ import { setCookie } from "../../../shared/utils/cookie";
 import { signIn } from "../../services/api/auth.api";
 import Button from "../../components/button/button";
 import { useNavigate } from "react-router-dom";
+import { ErrorWithResponse } from "../../types/error";
 
-interface ErrorWithResponse {
-  response?: {
-    data: {
-      message?: string;
-    };
-  };
-}
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
