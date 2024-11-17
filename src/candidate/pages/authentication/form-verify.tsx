@@ -20,7 +20,7 @@ const FormVerify: React.FC = () => {
       });
     },
     onSuccess: () => {
-      setCookie("at_itc", data?.accessToken as string);
+      setCookie("at-itc", data?.accessToken as string);
       navigate("/", {
         state: { email: email },
       });

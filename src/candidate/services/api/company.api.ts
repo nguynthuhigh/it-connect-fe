@@ -4,7 +4,9 @@ export const findCompanyBySlug = async (slug: string) => {
   return res.data;
 };
 
-export const registerCompanyAPI = async (body: unknown) => {
+export const registerCompanyAPI = async (
+  body: unknown
+): Promise<{ message: string }> => {
   const res = await axiosInstance.post(`/candidate/company/register`, body);
   return res.data;
 };

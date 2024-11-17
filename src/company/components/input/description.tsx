@@ -6,7 +6,7 @@ interface DescriptionProps {
   title: string;
   name: string;
   onChange: (html: string, name: string) => void;
-  value: string;
+  value?: string;
   className?: string;
 }
 

@@ -10,6 +10,8 @@ import { useMutation } from "@tanstack/react-query";
 import { registerCompanyAPI } from "../../services/api/company.api";
 import { getCookie } from "../../../shared/utils/cookie";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ErrorWithResponse } from "../../types/error";
 interface ICompany {
   name?: string;
   country?: string;
@@ -36,15 +38,20 @@ const RegisterCompany = () => {
       return;
     }
   }, []);
-  const { mutate } = useMutation({
+  const { mutate, data } = useMutation<{ message: string }>({
     mutationKey: ["register-company"],
     mutationFn: async () => {
-      await registerCompanyAPI(registerData);
+      return await registerCompanyAPI(registerData);
     },
     onSuccess: () => {
-      navigate("/");
+      toast.success(data?.message);
+      navigate("/company");
     },
-    onError: () => {},
+    onError: (e: unknown) => {
+      const error = e as ErrorWithResponse;
+      const msg = error?.response?.data?.message;
+      toast.error(msg);
+    },
   });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

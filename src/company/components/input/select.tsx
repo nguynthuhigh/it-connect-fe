@@ -37,7 +37,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-full">
       <label htmlFor={name} className="font-semibold text-gray-main  block">
         {title}
       </label>
