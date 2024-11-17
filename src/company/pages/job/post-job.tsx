@@ -1,44 +1,50 @@
 import React, { useState } from "react";
 import Input from "../../../shared/components/input-pattern/input";
-import DescriptionJob from "../../components/add-new-post/description-job";
+import DescriptionJob from "../../components/input/description";
 import { Select, Space } from "antd";
-import CustomSelect from "../../components/add-new-post/select";
-import { useQuery } from "@tanstack/react-query";
+import CustomSelect from "../../components/input/select";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getAllSkill } from "../../services/api/skil.api";
+import { postJobAPI } from "../../services/api/job.api";
+import { toast } from "react-toastify";
+import { ErrorWithResponse } from "../../../candidate/types/error";
 interface ISkill {
   skillID: number;
   name: string;
 }
 interface IJob {
-  title: string;
-  description: string;
-  experience: string;
-  environment: string;
-  level: string;
-  salary: string;
-  work_type: string;
-  special: string;
-  is_public: boolean;
+  title?: string;
+  description?: string;
+  experience?: string;
+  environment?: string;
+  level?: string;
+  salary?: string;
+  work_type?: string;
+  special?: string;
+  is_public?: string;
+  is_public_salary?: string;
   status?: number;
-  skills: number[];
+  skills?: number[];
 }
 const P: React.FC = () => {
-  const [jobData, setJobData] = useState<IJob>({
-    title: "",
-    description: "",
-    experience: "",
-    environment: "",
-    level: "",
-    salary: "",
-    work_type: "",
-    special: "",
-    is_public: true,
-    status: undefined,
-    skills: [],
-  });
+  const [jobData, setJobData] = useState<IJob>();
   const { data } = useQuery<ISkill[]>({
     queryKey: ["skills"],
     queryFn: () => getAllSkill(),
+  });
+  const { mutate, data: resPostJob } = useMutation({
+    mutationKey: ["post-job"],
+    mutationFn: async () => {
+      return await postJobAPI(jobData);
+    },
+    onError: (e: unknown) => {
+      const error = e as ErrorWithResponse;
+      const msg = error?.response?.data?.message;
+      toast.error(msg);
+    },
+    onSuccess: () => {
+      toast.success(resPostJob?.message);
+    },
   });
   const convertNamesToSkillIDs = (
     names: string[],
@@ -60,13 +66,14 @@ const P: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setJobData({ ...jobData, [name]: value });
-    console.log(jobData);
+    console.log(value);
   };
   const handleChangeCustom = (html: string, name: string) => {
     setJobData({ ...jobData, [name]: html });
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutate();
     console.log(jobData);
   };
   return (
@@ -159,13 +166,15 @@ const P: React.FC = () => {
         ></Input>
         <div className="flex items-center">
           <label className="text-sm font-medium text-gray-main"></label>
-          <div className="flex items-center mt-5 space-x-4">
+          <div className="flex items-center justify-end mt-5 mr-3 space-x-4">
             <label className="flex items-center gap-2 text-gray-main">
               Public
               <input
                 type="radio"
-                name="visibility"
-                value="public"
+                name="is_public_salary"
+                value="true"
+                checked={jobData?.is_public_salary === "true"}
+                onChange={handleInputChange}
                 className="mr-2"
               />
             </label>
@@ -173,8 +182,10 @@ const P: React.FC = () => {
               Private
               <input
                 type="radio"
-                name="visibility"
-                value="private"
+                name="is_public_salary"
+                value="false"
+                checked={jobData?.is_public_salary === "false"}
+                onChange={handleInputChange}
                 className="mr-2"
               />
             </label>
@@ -184,34 +195,39 @@ const P: React.FC = () => {
       <DescriptionJob
         name="description"
         onChange={handleChangeCustom}
-        value={jobData.description}
+        value={jobData?.description}
         title="Job Description"
       ></DescriptionJob>
       <DescriptionJob
+        className="mt-20"
         name="special"
         onChange={handleChangeCustom}
-        value={jobData.special}
+        value={jobData?.special}
         title="Job Top 3 Reasons"
       ></DescriptionJob>
       <DescriptionJob
+        className="mt-20"
         name="experience"
         onChange={handleChangeCustom}
-        value={jobData.experience}
+        value={jobData?.experience}
         title="Your skill and experience"
       ></DescriptionJob>
       <DescriptionJob
+        className="mt-20"
         name="environment"
         onChange={handleChangeCustom}
-        value={jobData.environment}
+        value={jobData?.environment}
         title="Why you'll love working here"
       ></DescriptionJob>
-      <div className="flex items-center justify-end mt-5 mr-3 space-x-4">
+      <div className="flex items-center justify-end mt-20 mr-3 space-x-4">
         <label className="flex items-center gap-2 text-gray-main">
           Public
           <input
             type="radio"
-            name="visibility"
-            value="public"
+            name="is_public"
+            value="true"
+            checked={jobData?.is_public === "true"}
+            onChange={handleInputChange}
             className="mr-2"
           />
         </label>
@@ -219,8 +235,10 @@ const P: React.FC = () => {
           Private
           <input
             type="radio"
-            name="visibility"
-            value="private"
+            name="is_public"
+            value="false"
+            checked={jobData?.is_public === "false"}
+            onChange={handleInputChange}
             className="mr-2"
           />
         </label>

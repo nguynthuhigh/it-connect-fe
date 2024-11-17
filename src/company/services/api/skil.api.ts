@@ -4,6 +4,6 @@ interface ISkill {
   name: string;
 }
 export const getAllSkill = async (): Promise<ISkill[]> => {
-  const res = await axiosInstance.get("/api/v1/skill");
+  const res = await axiosInstance.get("/api/v1/admin/skill");
   return res.data;
 };

@@ -1,4 +1,4 @@
-import EditProfile from '../../components/edit-profile-company/EditProfile';
+import EditProfile from '../../components/profile-company/EditProfile';
 
 const EditProfileCompany = () => {
   return (

@@ -10,11 +10,11 @@ import Footer from "../candidate/components/footer/footer";
 import Search from "../candidate/pages/search-job";
 import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
-import MyAccount from "../candidate/pages/authentication/my-account";
-import CvManage from "../candidate/pages/authentication/manage-cv"
+import MyAccount from "../candidate/pages/profile/my-account";
+import CvManage from "../candidate/pages/profile/manage-cv";
 // import WriteReview from "../candidate/pages/company/write-review"
 // import Setting from "../candidate/pages/authentication/setting"
-import MyJobs from "../candidate/pages/authentication/my-jobs"
+import MyJobs from "../candidate/pages/profile/my-jobs";
 import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 
 import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
@@ -22,16 +22,17 @@ import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
 import RegisterCompany from "../candidate/pages/register-company/register-company";
 import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
 import ApplyJob from "../candidate/pages/apply-job/apply-job";
-
+import { ToastContainer } from "react-toastify";
 const HeaderLayout = () => (
   <div style={{ display: "flex" }}>
     <Header />
     <div style={{ flexGrow: 1, paddingTop: 80 }}>
+      <ToastContainer position="top-right" />
       <Outlet />
       <Footer></Footer>
-      </div>
     </div>
-  );
+  </div>
+);
 export const CandidateRoute = {
   path: "/",
   element: <HeaderLayout></HeaderLayout>,
@@ -57,7 +58,7 @@ export const CandidateRoute = {
       element: <CompanyWriteReviews />,
     },
     {
-      path: "job-details",
+      path: "job",
       element: <JobDetail />,
     },
     {

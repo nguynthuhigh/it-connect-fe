@@ -2,7 +2,7 @@ import IconFilter from "../../assets/svg/iconFilter.svg";
 import IconSearchCL from "../../assets/svg/iconSearchCL.svg";
 import { Pagination } from "antd"; // Importing Pagination from antd
 import { useState } from "react";
-import ListInvitations from "../../components/list-invitations/list-invitations";
+import ListInvitations from "../../components/apply/list-invitations";
 
 // Dữ liệu giả lập (sử dụng dữ liệu này thay vì gọi API trong thực tế)
 export const APPLY_STATUS = {

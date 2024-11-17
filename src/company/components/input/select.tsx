@@ -7,6 +7,7 @@ interface CustomSelectProps {
   title: string;
   options: { value: string; label: string }[];
   onChange: (value: string, name: string) => void;
+  className?: string;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -26,22 +27,18 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   });
 
   const onChangeCustom = (value: string) => {
-    // Validate the value with Zod
     const result = schema.safeParse({ value });
-
     if (!result.success) {
-      // If validation fails, set the error message
       setError(result.error.errors[0].message);
     } else {
-      // If validation passes, clear the error and pass value to onChange
       setError(null);
       onChange(value, name);
     }
   };
 
   return (
-    <div className="mb-4">
-      <label htmlFor={name} className="font-semibold text-gray-main mb-2 block">
+    <div className="mb-4 w-full">
+      <label htmlFor={name} className="font-semibold text-gray-main  block">
         {title}
       </label>
       <Select
@@ -50,7 +47,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         optionFilterProp="label"
         defaultValue={options[0].value}
         onChange={onChangeCustom}
-        className="w-[300px] bg-gray-50 h-[50px]"
+        className="w-full placeholder-[#757575] mt-1 placeholder-[16px] h-[50px]"
         options={options}
       />
       {error && <div className="text-red-500 mt-2">{error}</div>}

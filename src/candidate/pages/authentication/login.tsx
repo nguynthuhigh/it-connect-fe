@@ -32,7 +32,7 @@ const Login: React.FC = () => {
       setErrors({ login: msg });
     },
     onSuccess: (data: { accessToken: string; refreshToken: string }) => {
-      setCookie("at_itc", data.accessToken);
+      setCookie("at-itc", data.accessToken);
       navigate("/");
     },
   });

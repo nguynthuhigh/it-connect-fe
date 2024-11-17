@@ -58,7 +58,7 @@ const morePath = [
 export const Sidebar = () => {
   const location = useLocation();
   return (
-    <div className="w-[250px] border-r-2 h-[100vh] rounded-b-lg max-md:hidden">
+    <div className="w-[250px] border-r-2 h-full fixed bg-white  rounded-b-lg max-lg:hidden">
       <div className="flex space-x-2 p-4 border-b-0 border-gray-500">
         <img
           className="w-10 h-10 rounded-full object-cover"
