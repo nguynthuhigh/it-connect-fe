@@ -3,7 +3,7 @@ import Input from "../../../shared/components/input-pattern/input";
 // import SelectSearch from "../../../shared/components/input-pattern/select";
 // import DescriptionJob from '../../components/add-new-post/description-job';
 // import SkillSelect from "../../components/add-new-post/skill-select";
-import LocationSelect from "../../components/add-new-post/select";
+import LocationSelect from "../../components/input/select";
 const EditPostJob: React.FC = () => {
   return (
     <div className="bg-white p-6">

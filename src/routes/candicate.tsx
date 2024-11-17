@@ -11,10 +11,10 @@ import Search from "../candidate/pages/search-job";
 import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
 import MyAccount from "../candidate/pages/authentication/my-account";
-import CvManage from "../candidate/pages/authentication/manage-cv"
+import CvManage from "../candidate/pages/authentication/manage-cv";
 // import WriteReview from "../candidate/pages/company/write-review"
 // import Setting from "../candidate/pages/authentication/setting"
-import MyJobs from "../candidate/pages/authentication/my-jobs"
+import MyJobs from "../candidate/pages/authentication/my-jobs";
 import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
 
 import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
@@ -29,9 +29,9 @@ const HeaderLayout = () => (
     <div style={{ flexGrow: 1, paddingTop: 80 }}>
       <Outlet />
       <Footer></Footer>
-      </div>
     </div>
-  );
+  </div>
+);
 export const CandidateRoute = {
   path: "/",
   element: <HeaderLayout></HeaderLayout>,
@@ -57,7 +57,7 @@ export const CandidateRoute = {
       element: <CompanyWriteReviews />,
     },
     {
-      path: "job-details",
+      path: "job",
       element: <JobDetail />,
     },
     {

@@ -2,25 +2,27 @@ import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-interface DescriptionJobProps {
+interface DescriptionProps {
   title: string;
   name: string;
   onChange: (html: string, name: string) => void;
   value: string;
+  className?: string;
 }
 
-const DescriptionJob: React.FC<DescriptionJobProps> = ({
+const Description: React.FC<DescriptionProps> = ({
   title,
   name,
   value,
   onChange,
+  className,
 }) => {
   const handleEditorChange = (html: string) => {
     onChange(html, name);
   };
 
   return (
-    <div className="mb-16">
+    <div className={`${className} b-16"`}>
       <label className="font-semibold text-gray-main">{title}</label>
       <ReactQuill
         value={value}
@@ -33,4 +35,4 @@ const DescriptionJob: React.FC<DescriptionJobProps> = ({
   );
 };
 
-export default DescriptionJob;
+export default Description;

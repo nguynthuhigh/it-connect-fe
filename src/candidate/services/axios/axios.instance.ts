@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL + "/api/v1",
   timeout: 1000,
   headers: {
-    Authorization: "Bearer " + getCookie("at"),
+    Authorization: "Bearer " + getCookie("at-itc"),
   },
 });
 axiosInstance.interceptors.response.use(

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Input from "../../../shared/components/input-pattern/input";
-import DescriptionJob from "../../components/add-new-post/description-job";
+import DescriptionJob from "../../components/input/description";
 import { Select, Space } from "antd";
-import CustomSelect from "../../components/add-new-post/select";
+import CustomSelect from "../../components/input/select";
 import { useQuery } from "@tanstack/react-query";
 import { getAllSkill } from "../../services/api/skil.api";
 interface ISkill {
