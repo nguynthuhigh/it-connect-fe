@@ -4,8 +4,14 @@ interface ButtonProps {
   name: string;
   isLoading?: boolean;
   className?: string;
+  onClick?: () => void;
 }
-const Button: React.FC<ButtonProps> = ({ name, isLoading, className }) => {
+const Button: React.FC<ButtonProps> = ({
+  name,
+  isLoading,
+  className,
+  onClick,
+}) => {
   if (isLoading) {
     return (
       <button
@@ -19,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({ name, isLoading, className }) => {
   } else {
     return (
       <button
+        onClick={onClick}
         type="submit"
         className={`${className} text-white font-bold rounded-md  bg-blue-500 w-full h-[50px]  text-base `}
       >
