@@ -58,8 +58,8 @@ const RegisterCompany = () => {
     mutate();
   };
   return (
-    <div className=" h-screen pb-[1350px]">
-      <div className="flex relative flex-col items-center h-max">
+    <div className=" h-screen pb-[1550px] sm:pb-[1350px]">
+      <div className="flex relative flex-col items-center h-fit">
         <div className="relative w-full h-[200px] sm:h-[300px] text-center flex flex-col">
           <img
             src={ImageBanner}
@@ -67,7 +67,7 @@ const RegisterCompany = () => {
             className="absolute top-0 left-0 w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-[#3694ff] opacity-90"></div>
-          <div className="relative z-10 text-white mt-12 sm:mt-16">
+          <div className="relative text-white mt-12 sm:mt-16">
             <div className="text-2xl sm:text-3xl font-semibold mb-1 sm:mb-2">
               Contact us
             </div>
