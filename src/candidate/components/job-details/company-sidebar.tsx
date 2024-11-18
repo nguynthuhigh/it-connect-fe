@@ -20,7 +20,7 @@ const companyInfo = [
 
 const CompanySidebar = () => {
   return (
-    <div className="bg-white p-5 border rounded-2xl">
+    <div className="bg-white p-5 mt-5 border rounded-2xl">
       <div className="flex">
         <img
           src={ImageOB}
