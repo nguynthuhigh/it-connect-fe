@@ -12,7 +12,7 @@ const GeneralInfo: React.FC<GeneralInfoProps> = ({ name, address, logo }) => {
     <div className=" py-10  bg-[#78B6FF] text-white">
       <div className="max-w-[1250px] px-4 mx-auto font-semibold font-inter  md:flex items-center">
         <div>
-          <img className="w-[200px] mx-auto" src={logo}></img>
+          <img className="w-[200px] mx-auto rounded-xl" src={logo}></img>
         </div>
         <div className="ml-4 flex-col justify-between">
           <h1 className="text-4xl max-md:text-center">{name}</h1>

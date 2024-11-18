@@ -4,7 +4,7 @@ import GeneralInfo from "../../components/company/general-info";
 import CompanyInfo from "../../components/company/company-info";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import CompanyReview from "../../components/company/company-review";
-import CompanyLocation from "../../components/company/company-location";
+// import CompanyLocation from "../../components/company/company-location";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { findCompanyBySlug } from "../../services/api/company.api";
@@ -12,16 +12,12 @@ import { Company, Job } from "../../types/company";
 import { JOB_STATUS_NAME } from "../../contains/job_status";
 const CompanyDetails: React.FC = () => {
   const { slug } = useParams();
-  const { data, isLoading } = useQuery<Company>({
+  const { data } = useQuery<Company>({
     queryKey: [`company-${slug}`],
     queryFn: async () => {
       return await findCompanyBySlug(slug ? slug : " ");
     },
   });
-  console.log(data);
-  if (isLoading) {
-    return "...Loading";
-  }
   if (!data) {
     return "...NotFound";
   }
@@ -39,10 +35,10 @@ const CompanyDetails: React.FC = () => {
             <div className="md:flex justify-between">
               <div className="md:w-[64%]">
                 <CompanyInfo {...data}></CompanyInfo>
-                <CompanyLocation />
+                {/* <CompanyLocation /> */}
               </div>
               <div className="md:w-[35%] space-y-4">
-                {data.Jobs.map((item: Job) => (
+                {data?.Jobs.map((item: Job) => (
                   <RecruitmentInfo
                     {...item}
                     name={data.name}

@@ -12,13 +12,8 @@ import { Outlet } from "react-router-dom";
 import FormVerify from "../candidate/pages/authentication/form-verify";
 import MyAccount from "../candidate/pages/profile/my-account";
 import CvManage from "../candidate/pages/profile/manage-cv";
-// import WriteReview from "../candidate/pages/company/write-review"
-// import Setting from "../candidate/pages/authentication/setting"
 import MyJobs from "../candidate/pages/profile/my-jobs";
 import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
-
-import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
-
 import RegisterCompany from "../candidate/pages/register-company/register-company";
 import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
 import ApplyJob from "../candidate/pages/apply-job/apply-job";
@@ -58,7 +53,7 @@ export const CandidateRoute = {
       element: <CompanyWriteReviews />,
     },
     {
-      path: "job",
+      path: "job/:slug",
       element: <JobDetail />,
     },
     {
@@ -103,11 +98,6 @@ export const CandidateRoute = {
           element: <SavedJobs />,
         },
       ],
-    },
-
-    {
-      path: "job-invitation",
-      element: <JobInvitation />,
     },
     {
       path: "register-company",

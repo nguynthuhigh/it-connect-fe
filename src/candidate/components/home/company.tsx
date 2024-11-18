@@ -1,22 +1,22 @@
 import React from "react";
-import SkillVariant from "../variant/skill-variant";
+// import SkillVariant from "../variant/skill-variant";
 import Star from "../../assets/svg/star.svg";
 import Location from "../../assets/svg/location.svg";
 import { Link } from "react-router-dom";
-const skills = [
-  {
-    slug: "nodejs",
-    name: "b",
-  },
-  {
-    slug: "java",
-    name: "b",
-  },
-  {
-    slug: "python",
-    name: "b",
-  },
-];
+// const skills = [
+//   {
+//     slug: "nodejs",
+//     name: "b",
+//   },
+//   {
+//     slug: "java",
+//     name: "b",
+//   },
+//   {
+//     slug: "python",
+//     name: "b",
+//   },
+// ];
 interface CompanyProps {
   companyID: number;
   slug: string;
