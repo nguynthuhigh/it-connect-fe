@@ -38,12 +38,12 @@ const RegisterCompany = () => {
       return;
     }
   }, []);
-  const { mutate, data } = useMutation<{ message: string }>({
+  const { mutate } = useMutation<{ message: string }>({
     mutationKey: ["register-company"],
     mutationFn: async () => {
       return await registerCompanyAPI(registerData);
     },
-    onSuccess: () => {
+    onSuccess: (data: { message: string }) => {
       toast.success(data?.message);
       navigate("/company");
     },
@@ -55,7 +55,6 @@ const RegisterCompany = () => {
   });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(registerData);
     mutate();
   };
   return (

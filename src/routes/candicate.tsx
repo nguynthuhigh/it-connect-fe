@@ -1,6 +1,6 @@
 import CompanyDetails from "../candidate/pages/company/company-details";
 import Home from "../candidate/pages/home";
-import JobDetail from "../candidate/pages/job-details/job-details";
+import JobDetail from "../candidate/pages/job/job-details";
 import CompanyReviews from "../candidate/pages/company/company-review";
 import CompanyWriteReviews from "../candidate/pages/company/company-write-review";
 import Register from "../candidate/pages/authentication/register";
