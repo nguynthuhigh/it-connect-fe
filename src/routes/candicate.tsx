@@ -15,10 +15,7 @@ import CvManage from "../candidate/pages/profile/manage-cv";
 // import WriteReview from "../candidate/pages/company/write-review"
 // import Setting from "../candidate/pages/authentication/setting"
 import MyJobs from "../candidate/pages/profile/my-jobs";
-import SavedJobs from "../candidate/components/my-jobs/saved-jobs";
-
 import JobInvitation from "../candidate/pages/job-invitation/job-invitation";
-
 import RegisterCompany from "../candidate/pages/register-company/register-company";
 import JobInvitationTabs from "../candidate/pages/job-invitation/job-invitation";
 import ApplyJob from "../candidate/pages/apply-job/apply-job";
@@ -93,18 +90,7 @@ export const CandidateRoute = {
     {
       path: "my-jobs",
       element: <MyJobs />,
-      children: [
-        {
-          path: "saved-jobs",
-          element: <SavedJobs />,
-        },
-        {
-          path: "",
-          element: <SavedJobs />,
-        },
-      ],
     },
-
     {
       path: "job-invitation",
       element: <JobInvitation />,
