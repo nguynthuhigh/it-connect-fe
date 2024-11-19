@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import DeleteConfirmPopup from "../../components/delete-popup";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { formatDistanceToNow } from "date-fns";
+import SkillVariant from "../../../candidate/components/variant/skill-variant";
+import PopupCustom from "../../components/pop-up/pop-up";
+import IconAddress from "../../../candidate/assets/svg/icon_address.svg";
+import IconOffice from "../../../candidate/assets/svg/icon_office.svg";
+import IconClock from "../../../candidate/assets/svg/icon_clock.svg";
+import { useParams } from "react-router-dom";
+import { useJobApplications } from "../../hooks/useJobApplications";
+import ApplyList from "./apply-list";
 
 const DetailPostJob: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { slug } = useParams();
+  const pagination = { current: 1, limit: 5 };
+
+  const { data, isLoading } = useJobApplications(slug as string, pagination);
+
+  if (isLoading) return "...Loading";
 
   const showDeleteConfirm = () => {
     setIsModalVisible(true);
   };
 
   const handleDeleteConfirm = () => {
-    // Thực hiện logic xóa bài viết ở đây
     console.log("This job post was deleted");
     setIsModalVisible(false);
   };
@@ -19,9 +33,23 @@ const DetailPostJob: React.FC = () => {
   };
 
   return (
-    <div className="container-default md:flex">
-      <div className="md:w-full ">
-        <h1 className="text-2xl font-bold mb-4 text-black">Detail Post Job</h1>
+    <div>
+      <div className="md:w-full">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold text-black">Detail Post Job</h1>
+          <div className="flex space-x-4">
+            <button className="text-gray-500 hover:text-gray-700" type="button">
+              <FiEdit size={24} />
+            </button>
+            <button
+              className="text-red-500 hover:text-red-700"
+              type="button"
+              onClick={showDeleteConfirm}
+            >
+              <FiTrash2 size={24} />
+            </button>
+          </div>
+        </div>
 
         <div className="p-5 bg-white rounded-lg shadow-md mb-5">
           <h1 className="text-2xl font-bold mb-2 text-black">
@@ -34,127 +62,43 @@ const DetailPostJob: React.FC = () => {
             <span>Sign in to view salary</span>
           </div>
 
-          <div className="flex items-center text-base text-black my-2">
-            <span className="mr-2 text-gray-500"></span>
+          <div className="flex items-center gap-2 text-base text-black my-3">
+            <img src={IconAddress} alt="" />
+          </div>
+
+          <div className="flex items-center gap-2 text-base text-black my-3">
+            <img src={IconOffice} alt="" />
+            <span>Full-time</span>
+          </div>
+
+          <div className="flex items-center gap-2 text-base text-black my-3">
+            <img src={IconClock} alt="" />
             <span>
-              97 Tran Thi Nghi, KDC Cityland, Go Vap district, Ho Chi Minh city
+              {formatDistanceToNow(data?.data.createdAt || " ", {
+                addSuffix: true,
+              })}
             </span>
-          </div>
-
-          <div className="flex items-center text-base text-black my-2">
-            <span className="mr-2 text-gray-500"></span>
-            <span>At office</span>
-          </div>
-
-          <div className="flex items-center text-base text-black my-2">
-            <span className="mr-2 text-gray-500"></span>
-            <span>Posted 4 hours ago</span>
           </div>
 
           <div className="flex gap-2 mt-3">
-            <span>Skill</span>
-            <span className="bg-gray-300 text-black py-1 px-3 rounded-full text-sm">
-              ReactJS
-            </span>
-            <span className="bg-gray-300 text-black py-1 px-3 rounded-full text-sm">
-              JavaScript
-            </span>
-            <span className="bg-gray-300 text-black py-1 px-3 rounded-full text-sm">
-              NextJS
-            </span>
+            <SkillVariant skill="nodejs" />
           </div>
-        </div>
-
-        <div className="p-5 bg-white rounded-lg shadow-md mb-5">
-          <section className="mb-5">
-            <h3 className="text-lg font-bold mb-2">Top 3 reasons to join us</h3>
-            <ul className="pl-5 mb-2 list-disc">
-              <li className="mb-1 text-base text-black">
-                Working in a professional environment
-              </li>
-              <li className="mb-1 text-base text-black">
-                Unlimited bonus according to work performance
-              </li>
-              <li className="mb-1 text-base text-black">
-                Fully insured according to country regulations
-              </li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h3 className="text-lg font-bold mb-2">Job description</h3>
-            <ul className="pl-5 mb-2 list-disc">
-              <li className="mb-1 text-base text-black">
-                Working in a professional environment
-              </li>
-              <li className="mb-1 text-base text-black">
-                Unlimited bonus according to work performance
-              </li>
-              <li className="mb-1 text-base text-black">
-                Fully insured according to country regulations
-              </li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h3 className="text-lg font-bold mb-2">Your skills and experience</h3>
-            <ul className="pl-5 mb-2 list-disc">
-              <li className="mb-1 text-base text-black">
-                Experience in ReactJS, NextJS, JavaScript
-              </li>
-              <li className="mb-1 text-base text-black">
-                Familiar with front-end development
-              </li>
-              <li className="mb-1 text-base text-black">
-                Good communication skills
-              </li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h3 className="text-lg font-bold mb-2">Your skills and experience</h3>
-            <ul className="pl-5 mb-2 list-disc">
-              <li className="mb-1 text-base text-black">
-                Experience in ReactJS, NextJS, JavaScript
-              </li>
-              <li className="mb-1 text-base text-black">
-                Familiar with front-end development
-              </li>
-              <li className="mb-1 text-base text-black">
-                Good communication skills
-              </li>
-            </ul>
-          </section>
-        </div>
-
-        <div className="flex justify-end space-x-4">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Edit
-          </button>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={showDeleteConfirm} // Gọi hàm khi nhấn nút Delete
-          >
-            Delete
-          </button>
         </div>
       </div>
 
-      {/* Thêm popup xác nhận xóa */}
-      <DeleteConfirmPopup
-        visible={isModalVisible} // Truyền giá trị state vào đây
-        onConfirm={handleDeleteConfirm} // Truyền hàm xử lý xóa
-        onCancel={handleDeleteCancel} // Truyền hàm xử lý hủy
-      />
+      <PopupCustom
+        visible={isModalVisible}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+        title="Delete this job"
+        titleCancel="Cancel"
+        titleConfirm="Delete"
+      >
+        <p>Do you want to delete this job post?</p>
+      </PopupCustom>
+      <ApplyList></ApplyList>
     </div>
   );
 };
 
 export default DetailPostJob;
-
-
-

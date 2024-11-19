@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Table, TableColumnsType, TablePaginationConfig } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { getJobsAPI, IGetJob } from "../../services/api/job.api";
+import { useNavigate } from "react-router-dom";
 
 interface DataType {
   slug: string;
@@ -17,6 +18,7 @@ interface DataType {
 }
 
 const JobTable: React.FC = () => {
+  const navigate = useNavigate();
   const [pagination, setPagination] = useState({
     current: 1,
     limit: 4,
@@ -39,11 +41,6 @@ const JobTable: React.FC = () => {
       render: (text) => <div dangerouslySetInnerHTML={{ __html: text }} />,
     },
     {
-      title: "EXPERIENCE",
-      dataIndex: "experience",
-      render: (text) => <div dangerouslySetInnerHTML={{ __html: text }} />,
-    },
-    {
       title: "LEVEL",
       dataIndex: "level",
     },
@@ -63,9 +60,9 @@ const JobTable: React.FC = () => {
     {
       title: "ACTION",
       dataIndex: "action",
-      render: (_, { jobID }) => (
+      render: (_, { slug }) => (
         <button
-          onClick={() => console.log(jobID)}
+          onClick={() => navigate(`/company/job/${slug}`)}
           className="px-3 py-1.5 bg-blue-main font-semibold text-white rounded-lg"
         >
           View more
@@ -73,7 +70,6 @@ const JobTable: React.FC = () => {
       ),
     },
   ];
-  // Use useQuery to fetch paginated data
   const { data, isLoading } = useQuery<IGetJob>({
     queryKey: ["get-jobs", pagination.current, pagination.limit],
     queryFn: async () => {
