@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import JobInfo from "../components/company/job-info";
 import SearchJob from "../components/filter/search";
-import Job from "../../shared/dummy-data/job.json";
 import Location from "../assets/svg/location.svg";
 import Filter from "../components/filter/filter";
 import Popup from "reactjs-popup";
-// import ReactPaginate from "react-paginate";
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { Jobs, searchJobAPI } from "../services/api/job.api";
 const Search: React.FC = () => {
-  // const handlePageClick = (event:unknown) => {
-  //   const newOffset = (event.selected * itemsPerPage) % items.length;
-  //   console.log(
-  //     `User requested page number ${event.selected}, which is offset ${newOffset}`
-  //   );
-  //   setItemOffset(newOffset);
-  // };
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword");
+  const { data } = useQuery<Jobs[]>({
+    queryKey: ["search", keyword],
+    queryFn: () => searchJobAPI(keyword as string),
+  });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="container-default space-y-4">
@@ -59,8 +59,13 @@ const Search: React.FC = () => {
         </button>
       </div>
       <div className="lg:columns-4 md:columns-3 sm:columns-2">
-        {Job.jobs.map((item) => (
-          <JobInfo {...item}></JobInfo>
+        {data?.map((item: Jobs) => (
+          <JobInfo
+            {...item}
+            name={item.Company.name}
+            type={item.Company.industry}
+            logo={item.Company.logo}
+          ></JobInfo>
         ))}
       </div>
       {/* <ReactPaginate
