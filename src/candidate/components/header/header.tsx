@@ -44,7 +44,7 @@ const Header: React.FC = () => {
         <Link to={"/"}>
           <Logo className="w-15" />
         </Link>
-        <div className="text-white font-semibold flex space-x-2 ml-10">
+        <div className="text-white font-semibold flex space-x-2 ml-10 max-md:hidden">
           <h1>All Jobs</h1>
           <h1>It Companies</h1>
         </div>

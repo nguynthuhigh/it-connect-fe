@@ -1,5 +1,5 @@
 import axiosInstance from "../axios/axios.instance";
-
+import { Skill } from "../../types/company";
 export interface IGetTopJob {
   jobID: number;
   slug: string;
@@ -29,13 +29,6 @@ export interface Company {
   website: string;
   address: string;
   rating: number;
-}
-
-export interface Skill {
-  skillID: number;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export const getTopJobAPI = async (): Promise<IGetTopJob[]> => {
@@ -95,5 +88,33 @@ export const applyJobAPI = async (
       "Content-Type": "multipart/form-data",
     },
   });
+  return res.data;
+};
+export interface Jobs {
+  jobID: number;
+  slug: string;
+  title: string;
+  description: string;
+  experience: string;
+  environment: string;
+  level: string;
+  salary: number;
+  is_public_salary: boolean;
+  work_type: string;
+  special: string;
+  is_public: boolean;
+  author: number;
+  status: number;
+  companyID: number;
+  createdAt: string;
+  updatedAt: string;
+  Skills: Skill[];
+  Company: Company;
+}
+
+export const searchJobAPI = async (keyword: string): Promise<Jobs[]> => {
+  const res = await axiosInstance.get(
+    `/candidate/job/search?keyword=${keyword}`
+  );
   return res.data;
 };
