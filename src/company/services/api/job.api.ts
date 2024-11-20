@@ -104,3 +104,21 @@ export const getApplyJobAPI = async (
   );
   return res.data;
 };
+
+export const acceptApplyJobAPI = async (body: {
+  jobID?: number;
+  userID?: number;
+  message: string;
+}): Promise<{ message: string }> => {
+  const res = await axiosInstance.post(`/api/v1/job/apply-accept`, body);
+  return res.data;
+};
+
+export const rejectApplyJobAPI = async (body: {
+  jobID?: number;
+  userID?: number;
+  message: string;
+}): Promise<{ message: string }> => {
+  const res = await axiosInstance.post(`/api/v1/job/apply-reject`, body);
+  return res.data;
+};

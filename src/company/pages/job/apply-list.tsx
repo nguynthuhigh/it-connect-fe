@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { Table } from "antd";
 import { TableColumnsType, TablePaginationConfig } from "antd";
 import { useParams } from "react-router-dom";
-import { ApplyJob, User } from "../../services/api/job.api";
+import {
+  acceptApplyJobAPI,
+  ApplyJob,
+  rejectApplyJobAPI,
+  User,
+} from "../../services/api/job.api";
 import { useJobApplications } from "../../hooks/useJobApplications";
 import PopupCustom from "../../components/pop-up/pop-up";
 import StatusVariant from "./status-variant";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import Description from "../../components/input/description";
 const ApplyList: React.FC = () => {
   const { slug } = useParams();
   const [pagination, setPagination] = useState({
@@ -19,8 +27,34 @@ const ApplyList: React.FC = () => {
     status
   );
   const [email, setEmail] = useState<string>();
+  const [message, setMessage] = useState<string>("");
+
   const [applyJob, setApplyJob] = useState<ApplyJob>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { mutate } = useMutation<{ message: string }>({
+    mutationFn: async () =>
+      await acceptApplyJobAPI({
+        jobID: applyJob?.jobID,
+        userID: applyJob?.userID,
+        message: message,
+      }),
+    onSuccess: (data: { message: string }) => {
+      toast.success(data.message);
+    },
+    onError: () => {},
+  });
+  const { mutate: mutateReject } = useMutation<{ message: string }>({
+    mutationFn: async () =>
+      await rejectApplyJobAPI({
+        jobID: applyJob?.jobID,
+        userID: applyJob?.userID,
+        message: message,
+      }),
+    onSuccess: (data: { message: string }) => {
+      toast.success(data.message);
+    },
+    onError: () => {},
+  });
   const columns: TableColumnsType<User> = [
     {
       title: "#",
@@ -89,12 +123,16 @@ const ApplyList: React.FC = () => {
 
   if (isLoading) return <div>Loading...</div>;
   const handleAccept = () => {
-    console.log("This job post was deleted");
+    mutate();
     setIsOpen(false);
   };
 
   const handleReject = () => {
+    mutateReject();
     setIsOpen(false);
+  };
+  const handleChange = (html: string) => {
+    setMessage(html);
   };
   return (
     <>
@@ -119,7 +157,16 @@ const ApplyList: React.FC = () => {
         titleConfirm="Accept"
       >
         <div>{applyJob?.message}</div>
-        <div>{applyJob?.cv}</div>
+        <a href={applyJob?.cv} target="_blank">
+          View CV
+        </a>
+        <Description
+          className="h-[200px]"
+          title="Message"
+          name="message"
+          value={message}
+          onChange={handleChange}
+        ></Description>
       </PopupCustom>
     </>
   );

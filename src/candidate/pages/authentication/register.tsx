@@ -87,7 +87,7 @@ const Register: React.FC = () => {
       <div className="flex  bg-gray-100 w-full h-screen">
         <div className="flex flex-row-reverse w-full items-center justify-center bg-gray-100">
           <div className="max-w-[1280px] w-full h-[550px] flex shadow-lg rounded-lg">
-            <div className="w-1/2 bg-gray-200 flex flex-col items-center justify-center p-10 relative overflow-hidden">
+            <div className="w-1/2 bg-gray-200 max-md:hidden flex flex-col items-center justify-center p-10 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-300 to-indigo-500 opacity-20"></div>
               <div className="relative text-center">
                 <h1 className="text-4xl font-bold text-[#0094FF] mb-5">
@@ -105,7 +105,7 @@ const Register: React.FC = () => {
               </div>
             </div>
 
-            <div className="w-1/2 bg-white p-20 flex flex-col justify-center">
+            <div className="md:w-1/2 mx-auto bg-white p-20 flex flex-col justify-center">
               <h2 className="text-3xl font-semibold text-center text-[#585858] mb-6">
                 Sign Up
               </h2>

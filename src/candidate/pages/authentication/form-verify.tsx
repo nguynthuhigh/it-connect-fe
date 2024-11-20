@@ -12,14 +12,14 @@ const FormVerify: React.FC = () => {
   const { email } = location.state || {};
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string>();
-  const { mutate, isPending, data } = useMutation<{ accessToken: string }>({
+  const { mutate, isPending } = useMutation<{ accessToken: string }>({
     mutationFn: async () => {
       return await verifySignUp({
         otp,
         email,
       });
     },
-    onSuccess: () => {
+    onSuccess: (data: { accessToken: string }) => {
       setCookie("at-itc", data?.accessToken as string);
       navigate("/", {
         state: { email: email },

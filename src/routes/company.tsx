@@ -34,7 +34,7 @@ export const CompanyRoute = {
     },
 
     {
-      path: "post-new-job",
+      path: "job/post-job",
       element: <AddNewPost></AddNewPost>,
     },
     {

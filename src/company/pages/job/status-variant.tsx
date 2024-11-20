@@ -15,7 +15,7 @@ const StatusVariant: React.FC<{ status: string }> = ({ status }) => {
     case value.includes("expire"):
       return (
         <div
-          className={`border-red-400 py-0.5 px-2.5 border-[2px] font-semibold text-red-500 rounded-full bg-red-50`}
+          className={`border-red-400 w-fit py-0.5 px-2.5 border-[2px] font-semibold text-red-500 rounded-full bg-red-50`}
         >
           <h1 className="text-sm">Expire</h1>
         </div>
@@ -24,7 +24,7 @@ const StatusVariant: React.FC<{ status: string }> = ({ status }) => {
     case value.includes("accepted"):
       return (
         <div
-          className={`border-green-400 py-0.5 px-2.5 border-[2px] font-semibold text-green-500 rounded-full bg-green-50`}
+          className={`border-green-400 w-fit py-0.5 px-2.5 border-[2px] font-semibold text-green-500 rounded-full bg-green-50`}
         >
           <h1 className="text-sm">Accepted</h1>
         </div>
@@ -33,7 +33,7 @@ const StatusVariant: React.FC<{ status: string }> = ({ status }) => {
     case value.includes("reject"):
       return (
         <div
-          className={`border-red-400 py-0.5 px-2.5 border-[2px] font-semibold text-red-500 rounded-full bg-red-50`}
+          className={`border-red-400 w-fit py-0.5 px-2.5 border-[2px] font-semibold text-red-500 rounded-full bg-red-50`}
         >
           <h1 className="text-sm">Reject</h1>
         </div>
@@ -42,7 +42,7 @@ const StatusVariant: React.FC<{ status: string }> = ({ status }) => {
     default:
       return (
         <div
-          className={`border-black py-0.5 px-2.5 border-[2px] font-semibold text-black rounded-full`}
+          className={`border-black w-fit py-0.5 px-2.5 border-[2px] font-semibold text-black rounded-full`}
         >
           <h1 className="text-sm">{capitalizeFirstLetter(status)}</h1>
         </div>

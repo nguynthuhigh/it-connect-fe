@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Table, TableColumnsType, TablePaginationConfig } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { getJobsAPI, IGetJob } from "../../services/api/job.api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../../../candidate/components/button/button";
 
 interface DataType {
   slug: string;
@@ -21,7 +22,7 @@ const JobTable: React.FC = () => {
   const navigate = useNavigate();
   const [pagination, setPagination] = useState({
     current: 1,
-    limit: 4,
+    limit: 10,
   });
   const columns: TableColumnsType<DataType> = [
     {
@@ -89,18 +90,25 @@ const JobTable: React.FC = () => {
   };
 
   return (
-    <Table<DataType>
-      columns={columns}
-      dataSource={data?.data || []}
-      loading={isLoading}
-      pagination={{
-        current: pagination.current,
-        pageSize: pagination.limit,
-        total: data?.total,
-      }}
-      onChange={handleTableChange}
-      rowKey="jobID"
-    />
+    <div>
+      <Link to={"/company/job/post-job"}>
+        <div className="w-[200px] ml-auto my-2">
+          <Button name="Post Job"></Button>
+        </div>
+      </Link>
+      <Table<DataType>
+        columns={columns}
+        dataSource={data?.data || []}
+        loading={isLoading}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.limit,
+          total: data?.total,
+        }}
+        onChange={handleTableChange}
+        rowKey="jobID"
+      />
+    </div>
   );
 };
 export default JobTable;

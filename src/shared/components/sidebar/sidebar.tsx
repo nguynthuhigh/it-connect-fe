@@ -1,20 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
 import SideBarPart from "./sidebar-part";
 import Dashboard from "../../assets/svg/dashboard.svg?react";
-import Invitation from "../../assets/svg/invitations.svg?react";
 import ITC from "../../assets/svg/itc.svg?react";
 import Jobs from "../../assets/svg/jobs.svg?react";
 import Permission from "../../assets/svg/permission.svg?react";
 import Transactions from "../../assets/svg/transaction.svg?react";
-
 import DashboardGray from "../../assets/svg/dashboard-gray.svg?react";
-import InvitationGray from "../../assets/svg/invitations-gray.svg?react";
 import ITCGray from "../../assets/svg/itc-gray.svg?react";
 import JobsGray from "../../assets/svg/jobs-gray.svg?react";
 import PermissionGray from "../../assets/svg/permission-gray.svg?react";
 import TransactionsGray from "../../assets/svg/transaction-gray.svg?react";
 
 import LogOut from "../../assets/svg/log-out.svg?react";
+import { useAuthCompany } from "../../../company/hooks/useAuth";
 const path = [
   {
     pathname: "/company/dashboard",
@@ -24,7 +22,7 @@ const path = [
   },
   {
     pathname: "/company/permission",
-    name: "Permission",
+    name: "Member",
     icon: Permission,
     icon_gray: PermissionGray,
   },
@@ -34,17 +32,11 @@ const path = [
     icon: Jobs,
     icon_gray: JobsGray,
   },
-  {
-    pathname: "/company/invitations",
-    name: "Invitations",
-    icon: Invitation,
-    icon_gray: InvitationGray,
-  },
 ];
 const morePath = [
   {
-    pathname: "/company/draft",
-    name: "Draft",
+    pathname: "/company/buy-itc",
+    name: "Buy ITC",
     icon: ITC,
     icon_gray: ITCGray,
   },
@@ -57,6 +49,7 @@ const morePath = [
 ];
 export const Sidebar = () => {
   const location = useLocation();
+  const { data } = useAuthCompany();
   return (
     <div className="w-[250px] border-r-2 h-full fixed bg-white  rounded-b-lg max-lg:hidden">
       <div className="flex space-x-2 p-4 border-b-0 border-gray-500">
@@ -65,9 +58,11 @@ export const Sidebar = () => {
           src="https://tintuc-divineshop.cdn.vccloud.vn/wp-content/uploads/2023/03/nhung-bi-mat-ve-nobita-tung-bi-hieu-nham-la-chon-giong-doraemon_6401b11ace55f.jpeg"
           alt="User"
         />
-        <div className="text-sm font-semibold">
-          <h1 className="text-gray-500">HR</h1>
-          <h1 className="text-black font-medium">Minh Nguyen</h1>
+        <div className="text-sm font-semibold w-[250px]">
+          <h1 className="text-gray-500">{data?.roleCompany}</h1>
+          <h1 className="text-black font-medium overflow-hidden text-ellipsis w-[180px]">
+            {data?.email}
+          </h1>
         </div>
       </div>
       <div className="border-b border-l-gray-main mx-2"></div>

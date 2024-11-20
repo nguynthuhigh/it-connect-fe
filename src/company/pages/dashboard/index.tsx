@@ -1,37 +1,46 @@
 import React from "react";
-import PieChart from "../../components/analysts/pie-chart";
+// import PieChart from "../../components/analysts/pie-chart";
 import Card from "../../components/analysts/card";
 import LineChart from "../../components/analysts/line-chart";
 import TransactionList from "../../components/analysts/list";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getDashboardAPI,
+  IGetDashboard,
+} from "../../services/api/analysts.api";
 
 const Dashboard: React.FC = () => {
+  const { data } = useQuery<IGetDashboard>({
+    queryKey: ["dashboard-total"],
+    queryFn: () => getDashboardAPI(),
+  });
   return (
     <div className="font-inter">
       {/* <PieChart></PieChart> */}
       <div className="grid grid-cols-4 gap-5  max-md:grid-cols-2">
         <Card
           title="Balance"
-          value={123123}
-          percentage={123123}
+          value={data?.balance || 0}
+          percentage={0}
           prefix={"ITC "}
           backgroundColor="bg-orange-50"
         ></Card>
         <Card
           title="Job"
-          value={123123}
-          percentage={123123}
+          value={data?.totalJobs || 0}
+          percentage={0}
           backgroundColor="bg-green-50"
         ></Card>
         <Card
           title="Apply"
-          value={123123}
-          percentage={123123}
+          value={data?.totalApplies || 0}
+          percentage={0}
           backgroundColor="bg-indigo-50"
         ></Card>
         <Card
-          title="Balance"
-          value={123123}
-          percentage={123123}
+          title="Transactions"
+          value={data?.totalTransactions || 0}
+          percentage={0}
           backgroundColor="bg-blue-50"
         ></Card>
       </div>

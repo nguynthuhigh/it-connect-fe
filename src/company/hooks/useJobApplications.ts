@@ -7,7 +7,7 @@ export const useJobApplications = (
   status?: string
 ) => {
   return useQuery<IJobDetails>({
-    queryKey: ["apply", pagination.current, pagination.limit, status],
+    queryKey: ["apply", pagination.current, pagination.limit, status, slug],
     queryFn: async () =>
       await getApplyJobAPI({
         page: pagination.current,
