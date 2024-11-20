@@ -8,6 +8,7 @@ import { getAllSkill } from "../../services/api/skil.api";
 import { postJobAPI } from "../../services/api/job.api";
 import { toast } from "react-toastify";
 import { ErrorWithResponse } from "../../../candidate/types/error";
+import { useNavigate } from "react-router-dom";
 interface ISkill {
   skillID: number;
   name: string;
@@ -26,13 +27,14 @@ interface IJob {
   status?: number;
   skills?: number[];
 }
-const P: React.FC = () => {
+const PostJob: React.FC = () => {
+  const navigate = useNavigate();
   const [jobData, setJobData] = useState<IJob>();
   const { data } = useQuery<ISkill[]>({
     queryKey: ["skills"],
     queryFn: () => getAllSkill(),
   });
-  const { mutate, data: resPostJob } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["post-job"],
     mutationFn: async () => {
       return await postJobAPI(jobData);
@@ -42,8 +44,9 @@ const P: React.FC = () => {
       const msg = error?.response?.data?.message;
       toast.error(msg);
     },
-    onSuccess: () => {
-      toast.success(resPostJob?.message);
+    onSuccess: (data: { message: string }) => {
+      toast.success(data?.message);
+      navigate("/company/job");
     },
   });
   const convertNamesToSkillIDs = (
@@ -61,12 +64,10 @@ const P: React.FC = () => {
   const handleChange = (names: string[]) => {
     const skillIDs = convertNamesToSkillIDs(names, data);
     setJobData({ ...jobData, skills: skillIDs });
-    console.log(jobData);
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setJobData({ ...jobData, [name]: value });
-    console.log(value);
   };
   const handleChangeCustom = (html: string, name: string) => {
     setJobData({ ...jobData, [name]: html });
@@ -74,7 +75,6 @@ const P: React.FC = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate();
-    console.log(jobData);
   };
   return (
     <form onSubmit={onSubmit} className="bg-white ">
@@ -255,4 +255,4 @@ const P: React.FC = () => {
   );
 };
 
-export default P;
+export default PostJob;
