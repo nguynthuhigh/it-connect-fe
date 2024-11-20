@@ -9,6 +9,7 @@ import BuyITC from "../company/pages/buy-itc/buy-itc";
 
 import Invitation from "../company/pages/invitations/invitation";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "../company/pages/dashboard";
 
 const RootLayout = () => (
   <div style={{ display: "flex" }}>
@@ -29,11 +30,11 @@ export const CompanyRoute = {
     },
     {
       path: "dashboard",
-      element: <Draft></Draft>,
+      element: <Dashboard></Dashboard>,
     },
 
     {
-      path: "post-new-job",
+      path: "job/post-job",
       element: <AddNewPost></AddNewPost>,
     },
     {
@@ -41,7 +42,7 @@ export const CompanyRoute = {
       element: <EditPostJob></EditPostJob>,
     },
     {
-      path: "detail-post-job",
+      path: "job/:slug",
       element: <DetailPostJob></DetailPostJob>,
     },
     {

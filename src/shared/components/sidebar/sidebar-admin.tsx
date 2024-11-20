@@ -88,10 +88,9 @@ export const SidebarAdmin: React.FC = () => {
                 {capitalizeFirstLetter(item?.name)}
               </h1>
             ))}
-            {/* #redux */}
           </div>
           <h1 className="text-black font-medium text-ellipsis">
-            {data.user.email}
+            {data.email}
           </h1>
         </div>
       </div>

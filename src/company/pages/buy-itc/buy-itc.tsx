@@ -1,85 +1,81 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import CurrencyInput from "react-currency-input-field";
+import React, { ChangeEvent, useState } from "react";
+import TransactionList from "../../components/analysts/list";
 
-const DepositPage: React.FC = () => {
-  const [amount, setAmount] = useState<number>();
-  const [paymentMethod, setPaymentMethod] = useState<string>("");
-  const balance = 1000;
-  const conversionRate = 100;
+const PaymentForm: React.FC = () => {
+  const [selectedMethod, setSelectedMethod] = useState("WeChat Pay");
+  const [amountInITC, setAmountInITC] = useState<number | undefined>(undefined);
 
-  const handleAmountChange = (value: number) => {
-    setAmount(value);
-  };
-  const handlePaymentMethodChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPaymentMethod(e.target.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert(`Nạp ${amount} ITC với phương thức ${paymentMethod}`);
-  };
+  const paymentMethods = ["Pointer Wallet"];
+  const predefinedAmounts = [5, 10, 50, 100, 200, 500];
+  const conversionRate = 1000;
+  const predefinedAmountsInCurrency = predefinedAmounts.map(
+    (amt) => amt * conversionRate
+  );
 
   return (
-    <div className=" min-h-screen bg-gray-100 ">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
-        <h2 className="text-2xl font-semibold text-center mb-4">
-          Nạp tiền vào ví
-        </h2>
-        <div className="text-gray-600 text-center mb-6">
-          <p>
-            Số dư hiện tại: <span className="font-bold">{balance} $ITC</span>
-          </p>
-          <p>
-            Tỉ lệ quy đổi:{" "}
-            <span className="font-bold">1 $ITC = {conversionRate} VNĐ</span>
-          </p>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Số tiền cần nạp ($ITC)
-            </label>
-            <CurrencyInput
-              value={amount}
-              onValueChange={handleAmountChange}
-              placeholder="Nhập số tiền cần nạp"
-              prefix="đ"
-              decimalsLimit={2}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    <div className="bg-white text-gray-900 p-6 rounded-md   mx-auto">
+      <h1 className="text-lg font-bold mb-4">Buy ITC</h1>
+      <div className="flex items-center gap-4 mb-4">
+        {paymentMethods.map((method) => (
+          <label
+            key={method}
+            className={`flex items-center gap-2 cursor-pointer ${
+              selectedMethod === method ? "text-blue-500" : "text-gray-500"
+            }`}
+          >
+            <input
+              type="radio"
+              value={method}
+              checked={selectedMethod === method}
+              onChange={() => setSelectedMethod(method)}
+              className="hidden"
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phương thức thanh toán
-            </label>
-            <div className="mt-2 space-y-2">
-              {["PayPal", "Stripe", "Pointer Wallet"].map((method) => (
-                <label key={method} className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value={method}
-                    checked={paymentMethod === method}
-                    onChange={handlePaymentMethodChange}
-                    className="form-radio text-blue-600 h-4 w-4"
-                  />
-                  <span className="text-gray-700">{method}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 focus:outline-none"
-            >
-              Nạp tiền
-            </button>
-          </div>
-        </form>
+            <div
+              className={`w-4 h-4 rounded-full border-2 ${
+                selectedMethod === method
+                  ? "border-blue-500"
+                  : "border-gray-400"
+              }`}
+            />
+            {method}
+          </label>
+        ))}
       </div>
+      <div className="flex items-center gap-4 mb-4">
+        <input
+          value={amountInITC ?? ""}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setAmountInITC(Number(e.target.value))
+          }
+          placeholder="Enter amount (ITC)"
+          className="bg-gray-100 text-gray-900 p-2 rounded-md w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+        />
+        <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600">
+          Pay
+        </button>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {predefinedAmounts.map((amt, index) => (
+          <button
+            key={amt}
+            onClick={() => setAmountInITC(amt)}
+            className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-200"
+          >
+            {predefinedAmountsInCurrency[index].toLocaleString()} đ
+          </button>
+        ))}
+      </div>
+      {amountInITC && (
+        <p className="mt-4 text-gray-600">
+          Amount in VND:{" "}
+          <span className="text-blue-500">
+            {(amountInITC * conversionRate).toLocaleString()} đ
+          </span>
+        </p>
+      )}
+      <TransactionList></TransactionList>
     </div>
   );
 };
 
-export default DepositPage;
+export default PaymentForm;
